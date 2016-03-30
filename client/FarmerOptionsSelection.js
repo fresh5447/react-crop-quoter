@@ -5,15 +5,14 @@ var MenuItem = require('material-ui/lib/menus/menu-item');
 var FarmerOptionsSelection = React.createClass({
   getInitialState: function() {
     return { 
-      cityValue: '',
-      townValue: '',
-      rangeValue: '',
-      locKey: '',
-      currentLoc: '',
-      locations: ''
+      cityValue: null,
+      townValue: null,
+      rangeValue: null,
       };
   },
-  getLocKey: function() {
+  handleSubmit: function(e) {
+    console.log("button clicked")
+    e.preventDefault();
     var city = this.state.cityValue;
     var town = this.state.townValue;
     var range = this.state.rangeValue;
@@ -21,30 +20,26 @@ var FarmerOptionsSelection = React.createClass({
       return null
     }
     var locKey = city + town + range;
-    return locKey
+    this.props.getLocation(locKey);
   },
   handleCityChange: function(event, index, value) {
     return this.setState({cityValue: value})
   },
-  handleTownChange: function(event, index, value) {
-    return this.setState({townValue: value})
+  handleTownChange: function(e) {
+    return this.setState({townValue: e.target.value})
   },
-  handleRangeChange: function(event, index, value) {
-    return this.setState({rangeValue: value})
+  handleRangeChange: function(e) {
+    return this.setState({rangeValue: e.target.value})
   },
   render: function() {
     var cityItems = this.props.cities.map(function(i){
       return <MenuItem value={i.key} key={'cities' + i._id} primaryText={i.name}/>
     });
-    var townShipItems = this.props.locations.map(function(i){
-      return <MenuItem value={i.twp} key={'townships_' + i._id} primaryText={i.twp}/>
-    });
-    var rangeItems = this.props.locations.map(function(i){
-      return <MenuItem value={i.rge} key={'range' + i._id} primaryText={i.rge}/>
-    });
     return (
-      <div className="container"> 
-        <div className="row"> 
+      <div className="container">
+      <h5> <span className="steps">select location </span></h5>
+        <form onSubmit={this.handleSubmit}>
+        <div className="row">
           <div className="col-xs-4">
             <h5> county </h5>
             <SelectField maxHeight={300} value={this.state.cityValue} onChange={this.handleCityChange}>
@@ -52,22 +47,26 @@ var FarmerOptionsSelection = React.createClass({
             </SelectField>
           </div>
           <div className="col-xs-4">
-            <h5> township </h5>
-            <SelectField  value={this.state.townValue} onChange={this.handleTownChange}>
-              {townShipItems}
-            </SelectField>
+          <h5> township </h5>
+          <input
+            type="text"
+            placeholder="005S"
+            value={ this.state.townValue }
+            onChange={ this.handleTownChange }/>
           </div>
           <div className="col-xs-4">
-            <h5>range </h5>
-            <SelectField  value={this.state.rangeValue} onChange={this.handleRangeChange}>
-              {rangeItems}
-            </SelectField>
+          <h5> range </h5>
+          <input
+            type="text"
+            placeholder="009W"
+            value={ this.state.rangeValue }
+            onChange={ this.handleRangeChange }/>
           </div>
         </div>
-        <div>
-          <h5> finalize </h5>
-          <button onClick={this.props.getLocation}> GO </button>
+        <div className="row">
+          <button type="submit" className="btn btn-secondary">GO</button>
         </div>
+        </form>
       </div>
       )
   }

@@ -26,49 +26,49 @@ var desired_cell = worksheet[locationKey].v;
 
 
 
-var globs = [];
-var cities = [];
+// var globs = [];
+// var cities = [];
 
-for (var i = 6; i < 3694; i++) {
-  if (worksheet['E'+ i].v.toString().trim().charAt(0) != '0' && worksheet['E'+ i].v.toString().trim() != 'All Other'.toString().trim()) {
-    var city = {};
-    city.cityName = worksheet['E'+ i].v;
-    city.cityKey = worksheet['D'+ i].v;
-    cities.push(city)
-  };
-};
+// for (var i = 6; i < 3694; i++) {
+//   if (worksheet['E'+ i].v.toString().trim().charAt(0) != '0' && worksheet['E'+ i].v.toString().trim() != 'All Other'.toString().trim()) {
+//     var city = {};
+//     city.cityName = worksheet['E'+ i].v;
+//     city.cityKey = worksheet['D'+ i].v;
+//     cities.push(city)
+//   };
+// };
 
-cities.forEach(function(item){
-  var city = new City();
-  city.name = item.cityName.trim();
-  city.key = item.cityKey.trim();
-  city.save();
-});
+// cities.forEach(function(item){
+//   var city = new City();
+//   city.name = item.cityName.trim();
+//   city.key = item.cityKey.trim();
+//   city.save();
+// });
 
-for (var i = 7; i < 3694; i++) {
-  if(worksheet['B'+ i].v.charAt(worksheet['B'+ i].v.length -1) != '0'){
-      var glob = {};
-      glob.locationKey = worksheet['B'+ i].v;
-      glob.cty = worksheet['B'+ i].v.slice().slice(0,3).trim();
-      glob.twp = worksheet['B'+ i].v.slice().slice(3,7).trim();
-      glob.rge = worksheet['B'+ i].v.slice().slice(7).trim();
-      glob.wheat = [ { 'Basic': worksheet['H' + i].v },  { 'DXS5': worksheet['I'+ i].v },  { 'DDA': worksheet['J' + i].v },   { 'DXS1': worksheet['K' + i].v },   { 'DD20': worksheet['L' + i].v },  { 'XS20IP': worksheet['M' + i].v },  { '80MIN': worksheet['N' + i].v } ];
-      glob.barley = [ { 'Basic': worksheet['P' + i].v },  { 'DXS5': worksheet['Q'+ i].v },  { 'DDA': worksheet['R' + i].v },   { 'DXS1': worksheet['S' + i].v },   { 'DD20': worksheet['T' + i].v },  { 'XS20IP': worksheet['U' + i].v },  { '80MIN': worksheet['V' + i].v } ];
-      globs.push(glob)
-    }
-};
+// for (var i = 7; i < 3694; i++) {
+//   if(worksheet['B'+ i].v.charAt(worksheet['B'+ i].v.length -1) != '0'){
+//       var glob = {};
+//       glob.locationKey = worksheet['B'+ i].v;
+//       glob.cty = worksheet['B'+ i].v.slice().slice(0,3).trim();
+//       glob.twp = worksheet['B'+ i].v.slice().slice(3,7).trim();
+//       glob.rge = worksheet['B'+ i].v.slice().slice(7).trim();
+//       glob.wheat = [ { 'Basic': worksheet['H' + i].v },  { 'DXS5': worksheet['I'+ i].v },  { 'DDA': worksheet['J' + i].v },   { 'DXS1': worksheet['K' + i].v },   { 'DD20': worksheet['L' + i].v },  { 'XS20IP': worksheet['M' + i].v },  { '80MIN': worksheet['N' + i].v } ];
+//       glob.barley = [ { 'Basic': worksheet['P' + i].v },  { 'DXS5': worksheet['Q'+ i].v },  { 'DDA': worksheet['R' + i].v },   { 'DXS1': worksheet['S' + i].v },   { 'DD20': worksheet['T' + i].v },  { 'XS20IP': worksheet['U' + i].v },  { '80MIN': worksheet['V' + i].v } ];
+//       globs.push(glob)
+//     }
+// };
 
 
-globs.forEach(function(item){
-  var location = new Location({
-    locationKey: item.locationKey.trim(),
-    cty: item.cty.trim(), 
-    twp: item.twp.trim(), 
-    rge: item.rge.trim(), 
-    wheat: item.wheat, 
-    barley: item.barley});
-  location.save();
-});
+// globs.forEach(function(item){
+//   var location = new Location({
+//     locationKey: item.locationKey.trim(),
+//     cty: item.cty.trim(), 
+//     twp: item.twp.trim(), 
+//     rge: item.rge.trim(), 
+//     wheat: item.wheat, 
+//     barley: item.barley});
+//   location.save();
+// });
 
 
 app.get('/api/locations', function(req, res){

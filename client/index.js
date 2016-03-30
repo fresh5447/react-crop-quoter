@@ -36,11 +36,11 @@ var App = React.createClass({
       self.setState({cities: data})
     })
   },
-  getLocation: function() {
+  getLocation: function(key) {
     console.log("setting location")
     var self = this;
     $.ajax({
-      url: '/api/locationkey/001005S009W',
+      url: '/api/locationkey/' + key,
       method: 'GET'
     }).done(function(data){
       self.setState({selectedLocation: data})
@@ -64,10 +64,9 @@ var App = React.createClass({
   },
   componentDidMount: function() {
     this.getCities();
-    this.getLocations();
   },
   render: function(){
-    if(!this.state.cities || !this.state.locations) {
+    if(!this.state.cities) {
       return <Loader/>
     } else {
     return (

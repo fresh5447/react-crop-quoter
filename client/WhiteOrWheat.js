@@ -1,5 +1,9 @@
 var React = require('react');
 
+var StateHailResults = React.createClass({
+  
+})
+
 var WhiteOrWheat = React.createClass({
   getInitialState: function() {
     return {
@@ -37,8 +41,8 @@ var WhiteOrWheat = React.createClass({
     var activeWheat = this.state.showOat ? this.state.showOat : 'wheat';
     return (
       <div className="container">
-        <h3> options for: { this.props.location.locationKey } </h3>
-        <button onClick={this.setOat.bind(this, 'wheat')}> Wheat </button> <button onClick={this.setOat.bind(this, 'barley')}> Show Other </button>
+        <h5> <span className="steps">Wheat/Barley Prices For { this.props.location.locationKey } </span></h5>
+        <button className="btn btn-secondary" onClick={this.setOat.bind(this, 'barley')}> Barley </button><button className="btn btn-secondary" onClick={this.setOat.bind(this, 'wheat')}> Wheat </button>
         <table className="table table-hover">
           <thead>
             <tr>
