@@ -1,19 +1,19 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 
-require('./stylesheets/main.scss')
+require('./stylesheets/main.scss');
 
 
 var App = React.createClass({
   render: function() {
     return (
       <div>
-        <h1> Hello, world! </h1>        
+        <h1> Hello, world! </h1>
       </div>
-      )
+      );
   }
-})
+});
 
-React.render(
+ReactDom.render(
   <App />, document.getElementById('app')
 );
