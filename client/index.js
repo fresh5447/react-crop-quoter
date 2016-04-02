@@ -1,19 +1,24 @@
 var React = require('react');
-var ReactDom = require('react-dom');
+var ReactDOM = require('react-dom');
+var DropDownState = require('./DropDownState');
+var injectTapEventPlugin = require('react-tap-event-plugin');
+
+injectTapEventPlugin();
 
 require('./stylesheets/main.scss');
+
 
 
 var App = React.createClass({
   render: function() {
     return (
       <div>
-        <h1> Hello, world! </h1>
+        <DropDownState />
       </div>
       );
   }
 });
 
-ReactDom.render(
+ReactDOM.render(
   <App />, document.getElementById('app')
 );
