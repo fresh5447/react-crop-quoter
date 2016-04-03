@@ -23,7 +23,7 @@ var XLSX = require('xlsx');
 var Location = require('./models/locations');
 var City = require('./models/cities');
 
-
+ app.use('/static', express.static('static'));
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in production mode');
 } else {
