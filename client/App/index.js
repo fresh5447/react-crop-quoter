@@ -1,35 +1,20 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var DropDownOneBox = require('./One/DropDownOneBox');
-var injectTapEventPlugin = require('react-tap-event-plugin');
-
-injectTapEventPlugin();
+var DropDownBox = require('./DropDownBox');
 
 require('../stylesheets/main.scss');
 
 
-var AllDropDownBox = React.createClass({
-
-  getInitialState: function() {
-    return {
-      urlKeyOne: null,
-      urlKeyTwo: null,
-    }
-  },
-  getUrlKey: function(urlKey) {
-    this.setState({ urlKeyOne: urlKey })
-    console.log(urlKey);
-  },
-
+var App = React.createClass({
   render: function() {
     return (
       <div>
-        <DropDownOneBox getUrlKey={ this.getUrlKey }/>
+        <DropDownBox/>
       </div>
       );
   }
 });
 
 ReactDOM.render(
-  <AllDropDownBox />, document.getElementById('app')
+  <App />, document.getElementById('app')
 );

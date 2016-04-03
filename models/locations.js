@@ -8,6 +8,7 @@ var LocationSchema = new Schema({
   cty: {type: String, unique: true},
   twp: {type: String, index: true, unique: true, sparse: true},
   rge: {type: String, unique: true},
+  firstKey: { type: String, index: true },
 });
 
 var twpSet = new Set();
