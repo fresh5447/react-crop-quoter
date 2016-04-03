@@ -18,6 +18,8 @@ mongoose.connect(mongooseUri, options);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/static', express.static('static'));
+
 var XLSX = require('xlsx');
 
 var Location = require('./models/locations');
