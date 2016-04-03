@@ -18,14 +18,15 @@ mongoose.connect(mongooseUri, options);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/static', express.static('static'));
+app.use('/static', express.static(__dirname + '/static'));
 
 var XLSX = require('xlsx');
 
 var Location = require('./models/locations');
 var City = require('./models/cities');
 
- app.use('/static', express.static('static'));
+app.use('/static', express.static(__dirname + '/static'));
+
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in production mode');
 } else {
