@@ -1,7 +1,10 @@
 var React = require('react');
-var One_Data = require('./One_Data');
 
 function One_Display(props){
+    props.csData.unshift({
+        "key" : "0000",
+        "name" : "-Select County-"
+    });
     var cityItems = props.csData.map(function(i){
       return <option value={ i.key } key={i.key}>{i.name}</option>
     });

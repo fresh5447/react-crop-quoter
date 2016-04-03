@@ -8,13 +8,11 @@ var Three_Data = React.createClass({
     }
   },
   get_Select_Data: function() {
-    console.log("About to get dd 3 data");
     var self = this;
     $.ajax({
       url: '/api/dropDownThree/' + this.props.keyOne + this.props.keyTwo,
       method: 'Get',
     }).done(function(data){
-      console.log("got dd 3 data");
       self.setState({ dataThree: data })
     })
   },

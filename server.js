@@ -111,6 +111,12 @@ app.get('/api/locations', function(req, res){
   })
 });
 
+app.get('/api/finalLocation/:key', function(req, res){
+  Location.find({ locationKey: req.params.key }, function(err, location){
+    res.json(location);
+  })
+});
+
 app.get('/api/dropDownTwo/:key', function(req, res){
   console.log(req.params.key,'inside req  params key dd two');
   Location.find({ cty: req.params.key }, function(err, locations){

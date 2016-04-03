@@ -14,7 +14,6 @@ var Two_Data = React.createClass({
       url: '/api/dropDownTwo/' + this.props.urlKey,
       method: 'Get',
     }).done(function(data){
-      console.log("got dd 2 data");
       self.setState({ dataTwo: data })
     })
   },

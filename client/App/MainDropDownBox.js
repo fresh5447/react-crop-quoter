@@ -2,6 +2,7 @@ var React = require('React');
 var One_Data = require('./One_Data');
 var Two_Data = require('./Two_Data');
 var Three_Data = require('./Three_Data');
+var OatBox = require('./Oatbox');
 
 var MainDropDownBox = React.createClass({
   getInitialState: function() {
@@ -22,7 +23,6 @@ var MainDropDownBox = React.createClass({
   },
   showTwo: function() {
     if(this.state.oneSelection) {
-      console.log("trying to show drop down two")
       return <Two_Data updateTwoSelection={this.updateTwoSelection} urlKey={ this.state.oneSelection }/>
     } else {
       return null;
@@ -36,12 +36,19 @@ var MainDropDownBox = React.createClass({
       return null;
     }
   },
+  showOatBox: function() {
+    if(this.state.threeSelection) {
+      var urlKey = this.state.oneSelection + this.state.twoSelection + this.state.threeSelection;
+      return <OatBox urlKey={urlKey} />
+    }
+  },
   render: function() {
     return (
       <div>
         <One_Data updateOneSelection={ this.updateOneSelection } />
         { this.showTwo() }
         { this.showThree() }
+        { this.showOatBox() }
       </div>
       )
   }
