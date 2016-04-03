@@ -42,9 +42,13 @@ var MainDropDownBox = React.createClass({
       return <OatBox urlKey={urlKey} />
     }
   },
+  resetQuote: function(){
+    return this.setState({oneSelection: null, twoSelection: null, threeSelection: null})
+  },
   render: function() {
     return (
       <div>
+        <button onClick={this.resetQuote.bind(this)} type="button" className="btn btn-secondary-outline">Reset</button>
         <One_Data updateOneSelection={ this.updateOneSelection } />
         { this.showTwo() }
         { this.showThree() }
