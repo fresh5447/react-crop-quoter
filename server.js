@@ -26,8 +26,6 @@ var City = require('./models/cities');
 
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in production mode');
-
-  app.use('/static', express.static('static'));
 } else {
   // When not in production, enable hot reloading
 
