@@ -1,16 +1,17 @@
 var React = require('react');
+var Two_Data = require('./Two_Data');
 
-function DropDownTwo(props){
-    console.log(props, 'props in dropdowntwo')
-    var twpItems = props.csData ? props.csData.map(function(i){
-      console.log(i)
-      return <option value={ i.rge } key={i.rge}>{i.rge}</option>
-    }) : null;
+function Two_Display(props){
+    var twpItems = props.csData.map(function(i){
+      if(i.twp){
+        return <option value={ i.twp } key={i._id}>{i.twp}</option>
+      }
+    });
     return (
       <div className="container myContainer">
       <form>
-        <h3> Township </h3>
         <fieldset className="form-group">
+          <label htmlFor="">Township</label>
           <select onChange={ props.onSelectionChange } className="form-control">
             { twpItems }
           </select>
@@ -20,4 +21,4 @@ function DropDownTwo(props){
       )
   };
 
-module.exports = DropDownTwo;
+module.exports = Two_Display;

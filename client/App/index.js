@@ -1,20 +1,19 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var DropDownBox = require('./DropDownBox');
+var MainDropDownBox = require('./MainDropDownBox');
 
 require('../stylesheets/main.scss');
 
-
-var App = React.createClass({
+var MainApp = React.createClass({
   render: function() {
     return (
       <div>
-        <DropDownBox/>
+        <MainDropDownBox/>
       </div>
       );
   }
 });
 
 ReactDOM.render(
-  <App />, document.getElementById('app')
+  <MainApp />, document.getElementById('app')
 );

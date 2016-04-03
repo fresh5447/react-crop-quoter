@@ -1,10 +1,10 @@
 var React = require('react');
-var DropDownOne = require('./DropDownOne')
+var One_Display = require('./One_Display');
 
-var DropDownOneData = React.createClass({
+var One_Data = React.createClass({
   getInitialState: function() {
     return {
-      data: null
+      dataOne: null
     }
   },
   getCty_Select_Data: function() {
@@ -13,7 +13,7 @@ var DropDownOneData = React.createClass({
       url: '/api/dropDownOne',
       method: 'Get',
     }).done(function(data){
-      self.setState({ data: data })
+      self.setState({ dataOne: data })
     })
   },
   onSelectionChange: function(event){
@@ -23,8 +23,8 @@ var DropDownOneData = React.createClass({
     this.getCty_Select_Data();
   },
   render: function() {
-    return this.state.data ? <DropDownOne onSelectionChange={this.onSelectionChange} csData={this.state.data}/> : null
+    return this.state.dataOne ? <One_Display onSelectionChange={this.onSelectionChange} csData={this.state.dataOne}/> : null
   }
 });
 
-module.exports = DropDownOneData;
+module.exports = One_Data;

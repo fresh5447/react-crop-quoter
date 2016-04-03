@@ -11,18 +11,6 @@ var LocationSchema = new Schema({
   firstKey: { type: String, index: true },
 });
 
-var twpSet = new Set();
 
-LocationSchema.methods.twp1 = function () {
-    var curTwp = this.twp;
-
-    if (twpSet.has(curTwp)) {
-        this.twp = undefined; // remove the twp field once duplicated
-    } else {
-        twpSet.add(curTwp); // save the existing twp value
-    }
-};
-
-LocationSchema.queue('twp1');
 
 module.exports = mongoose.model('Location', LocationSchema);

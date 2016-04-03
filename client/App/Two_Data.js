@@ -1,19 +1,21 @@
 var React = require('react');
-var DropDownBox = require('./DropDownBox')
+var Two_Display = require('./Two_Display')
 
-var DropDownTwoData = React.createClass({
+var Two_Data = React.createClass({
   getInitialState: function() {
     return {
-      data: null
+      dataTwo: null
     }
   },
   get_Select_Data: function() {
+    console.log("About to get dd 2 data");
     var self = this;
     $.ajax({
       url: '/api/dropDownTwo/' + this.props.urlKey,
       method: 'Get',
     }).done(function(data){
-      self.setState({ data: data })
+      console.log("got dd 2 data");
+      self.setState({ dataTwo: data })
     })
   },
   onSelectionChange: function(event){
@@ -23,8 +25,8 @@ var DropDownTwoData = React.createClass({
     this.get_Select_Data();
   },
   render: function() {
-    return this.state.csData ? <DropDownTwo onSelectionChange={this.onSelectionChange} csData={this.state.data}/> : null
+    return this.state.dataTwo ? <Two_Display onSelectionChange={this.onSelectionChange} csData={this.state.dataTwo}/> : null
   }
 });
 
-module.exports = DropDownTwoData;
+module.exports = Two_Data;

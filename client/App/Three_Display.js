@@ -1,8 +1,8 @@
 var React = require('react');
-var DropDownOneData = require('./DropDownTwoData');
+var Three_Data = require('./Three_Data');
 
-function DropDownTwo(props){
-    var cityItems = props.csData.map(function(i){
+function Three_Display(props){
+    var rgeItems = props.csData.map(function(i){
       return <option value={ i.rge } key={i._id}>{i.rge}</option>
     });
     return (
@@ -11,7 +11,7 @@ function DropDownTwo(props){
         <fieldset className="form-group">
           <label htmlFor="">Range</label>
           <select onChange={ props.onSelectionChange } className="form-control">
-            { cityItems }
+            { rgeItems }
           </select>
         </fieldset>
       </form>
@@ -19,4 +19,4 @@ function DropDownTwo(props){
       )
   };
 
-module.exports = DropDownTwo;
+module.exports = Three_Display;

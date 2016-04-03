@@ -1,7 +1,7 @@
 var React = require('react');
-var DropDownOneData = require('./DropDownOneData');
+var One_Data = require('./One_Data');
 
-function DropDownOne(props){
+function One_Display(props){
     var cityItems = props.csData.map(function(i){
       return <option value={ i.key } key={i.key}>{i.name}</option>
     });
@@ -19,4 +19,4 @@ function DropDownOne(props){
       )
   };
 
-module.exports = DropDownOne;
+module.exports = One_Display;
