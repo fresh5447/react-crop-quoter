@@ -25,6 +25,8 @@ var XLSX = require('xlsx');
 var Location = require('./models/locations');
 var City = require('./models/cities');
 var TopHalf = require('./models/topHalf');
+var StateRate = require('./models/stateRates');
+
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -172,6 +174,33 @@ if (process.env.NODE_ENV === 'production') {
 
 
 
+var workbookSR = XLSX.readFile('StateRates.xlsx');
+var first_sheet_name_SR = workbookSR.SheetNames[0];
+
+
+/* Get worksheet */
+var worksheetSR = workbookSR.Sheets[first_sheet_name_SR];
+
+
+var srGlobs =[];
+
+
+for (var i = 2; i < 100; i+=2) {
+      var srGlob = {};
+        srGlob.cityName = worksheetSR['A'+ i].v.trim();
+        srGlob.cityValue = worksheetSR['B'+ i].v * 100;
+        srGlobs.push(srGlob);
+};
+
+
+srGlobs.forEach(function(i){
+  var stateRate = new StateRate({
+    cityName:      i.cityName,
+    cityValue:      i.cityValue,
+  });
+  stateRate.save()
+});
+
 app.use('/img', express.static('img'));
 
 app.get('/', function(req, res) {
@@ -218,6 +247,19 @@ app.get('/api/topHalf', function(req, res){
 app.get('/api/oneTopHalf/:key', function(req, res){
   TopHalf.find({basicKey: req.params.key}, function(err, topHalf){
     res.json(topHalf)
+  })
+});
+
+app.get('/api/stateRates', function(req, res){
+  StateRate.find(function(err, srs){
+    res.json(srs)
+  })
+});
+
+app.get('/api/oneStateRate/:key', function(req, res){
+  console.log(req.params.key)
+  StateRate.find({ cityName: req.params.key }, function(err, sr){
+    res.json(sr)
   })
 });
 
