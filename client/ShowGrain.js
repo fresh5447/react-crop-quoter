@@ -11,7 +11,7 @@ function ShowGrain(props){
     return (
       <div className="container myContainer">
         <table className="table table-hover my-table">
-          <thead> Rain & Hail 
+          <thead> <h3> rain & hail </h3>
             <tr>
               { tableHeads }
             </tr>
@@ -24,10 +24,10 @@ function ShowGrain(props){
           </tbody>
         </table>
         <table className="table table-hover my-table">
-          <thead> Top Half Rates
+          <thead> <h3>  top half rates </h3> 
             <tr>
-              <th> Top Half Crop Value 2.0 </th>
-              <th> Top Half Crop Value +2.0 </th>
+              <th> crop value 2.0 </th>
+              <th>  crop value +2.0 </th>
             </tr>
           </thead>
           <tbody>
@@ -39,10 +39,7 @@ function ShowGrain(props){
           </tbody>
         </table>
         <table className="table table-hover my-table">
-          <thead>
-            <tr>
-              <th> State Rate</th>
-            </tr>
+          <thead> <h3> State Rate </h3>
           </thead>
           <tbody>
             <tr>

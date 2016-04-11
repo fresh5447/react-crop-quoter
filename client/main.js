@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var MainDropDownBox = require('./MainDropDownBox');
 
-require('../stylesheets/main.scss');
+require('./stylesheets/main.scss');
 
 var MainApp = React.createClass({
   render: function() {

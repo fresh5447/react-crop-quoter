@@ -25,17 +25,23 @@ function Two_Display(props){
       return <option value={ i } key={i}>{i}</option>
     });
     return (
-      <div className="container myContainer">
-      <form>
-        <fieldset className="form-group">
-          <label htmlFor="">Township</label>
-          <select onChange={ props.onSelectionChange } className="form-control">
-            { twpItems }
-          </select>
-        </fieldset>
-      </form>
-      </div>
+            <div className="jumbotron">
+              <div className="container">
+                <h1>township</h1>
+                  <form>
+                    <fieldset className="form-group">
+                      <label htmlFor="">Township</label>
+                      <select onChange={ props.onSelectionChange } className="form-control">
+                        { twpItems }
+                      </select>
+                    </fieldset>
+                  </form>
+              </div>
+            </div>
       )
   };
 
 module.exports = Two_Display;
+
+
+

@@ -78,15 +78,24 @@ var OatBox = React.createClass({
   },
   render: function() {
     return (
-        <div className="container">
-          <div className="btn-group">
-            <button onClick={this.toggleGrain.bind(this, 'wheat')} type="button" className="btn btn-secondary-outline">Wheat</button>
-            <button onClick={this.toggleGrain.bind(this, 'barley')} type="button" className="btn btn-secondary-outline">Barley</button>
-            { this.showingGrain() }
+          <div className="jumbotron">
+            <div className="container">
+              <div className="row">
+                <div className="btn-group center-block">
+                  <button onClick={this.toggleGrain.bind(this, 'wheat')} type="button" className="btn btn-secondary-outline stn-btn"><h1>wheat</h1></button>
+                  <button onClick={this.toggleGrain.bind(this, 'barley')} type="button" className="btn btn-secondary-outline stn-btn"><h1>barley</h1></button>
+                </div>
+              </div>
+              <div className="row">
+                { this.showingGrain() }
+              </div>
+            </div>
           </div>
-        </div>
       )
   }
 });
+
+
+
 
 module.exports = OatBox

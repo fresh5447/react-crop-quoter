@@ -1,15 +1,40 @@
 $font-stack:    Helvetica, sans-serif;
-$primary-color: white;
+$primary-color: red;
+
+$primary: #2c3e50;
+$secondary: #34495e;
+$accent: #9b59b6;
+$background: #ecf0f1;
+$foreground: #95a5a6;
+
+
 
 body {
-  font: 100% $font-stack;
-  background: $primary-color;
+  font: 100% $primary;
+  background: $background;
+}
+
+
+.my-jumbo {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.next-jumbo {
+  padding-bottom: 1000px;
 }
 
 .my-table {
   margin-top: 10px;
 }
 
+.stn-btn {
+    color: #2c3e50;
+    background-color: transparent;
+    background-image: none;
+    border-color: #2c3e50;
+    border-radius: 1rem;
+    top: 5%;
+}
 my-reset-btn {
   display: block;
   margin-left: auto;

@@ -48,9 +48,10 @@ var MainDropDownBox = React.createClass({
     return this.setState({oneSelection: null, twoSelection: null, threeSelection: null})
   },
   render: function() {
+    var resetBtn = this.state.oneSelection ? <button onClick={this.resetQuote.bind(this)} type="button" className="btn btn-secondary-outline my-reset-btn stn-btn center-block">reset</button> : null;
     return (
-      <div>
-        <button onClick={this.resetQuote.bind(this)} type="button" className="btn btn-secondary-outline my-reset-btn">Reset Location</button>
+      <div className="row">
+      { resetBtn }
         <One_Data updateOneSelection={ this.updateOneSelection } />
         { this.showTwo() }
         { this.showThree() }

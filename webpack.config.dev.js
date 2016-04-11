@@ -5,7 +5,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client',
-    './client/MainApp/index'
+    './client/main'
   ],
   output: {
     path: path.join(__dirname, 'static'),
@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
+        loaders: ["style", "css", "sass"]
       }
     ]
   }
