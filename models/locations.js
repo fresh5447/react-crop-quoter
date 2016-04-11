@@ -9,6 +9,7 @@ var LocationSchema = new Schema({
   twp: {type: String, index: true, unique: true, sparse: true},
   rge: {type: String, unique: true},
   firstKey: { type: String, index: true },
+  stateRate: String,
 });
 
 

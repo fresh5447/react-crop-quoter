@@ -1,6 +1,6 @@
 var React = require('react');
 
-function ShowGrain(props){
+function TopHalf(props){
   var tableHeads = props.grain.map(function(item){
     return <th> { Object.keys(item) } </th>
   });
@@ -12,7 +12,7 @@ function ShowGrain(props){
     return (
       <div className="container myContainer">
         <table className="table table-hover">
-          <thead>
+          <thead> Top Half based on Basic Of: Basic Here
             <tr>
               { tableHeads }
             </tr>

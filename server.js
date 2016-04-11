@@ -24,8 +24,8 @@ var XLSX = require('xlsx');
 
 var Location = require('./models/locations');
 var City = require('./models/cities');
+var TopHalf = require('./models/topHalf');
 
-app.use('/static', express.static(__dirname + '/static'));
 
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in production mode');
@@ -104,6 +104,74 @@ if (process.env.NODE_ENV === 'production') {
 //   location.save();
 // });
 
+
+
+
+//TOP HALF SECTION ---
+
+
+
+
+
+// var workbookTopHalf = XLSX.readFile('topHalf.xls');
+// var first_sheet_name_TopHalf = workbookTopHalf.SheetNames[0];
+// var locationKeyTwo = 'A19';
+
+// /* Get worksheet */
+// var worksheetTopHalf = workbookTopHalf.Sheets[first_sheet_name_TopHalf];
+
+// /* Find desired cell */
+// var desired_cell_two = worksheetTopHalf[locationKeyTwo].v;
+
+
+// var topHalfGlobs =[];
+
+
+// for (var i = 18; i < 63; i++) {
+//       var topHalfGlob = {};
+//       topHalfGlob.basicKey = worksheetTopHalf['A'+ i].v;
+//       topHalfGlob.half_two = worksheetTopHalf['G'+ i].v
+//       topHalfGlob.half_two_plus = worksheetTopHalf['I'+ i].v
+//       topHalfGlobs.push(topHalfGlob);
+// };
+
+// for (var i = 73; i < 124; i++) {
+//       var topHalfGlob = {};
+//       topHalfGlob.basicKey = worksheetTopHalf['A'+ i].v;
+//       topHalfGlob.half_two = worksheetTopHalf['G'+ i].v
+//       topHalfGlob.half_two_plus = worksheetTopHalf['I'+ i].v
+//       topHalfGlobs.push(topHalfGlob);
+// };
+
+// for (var i = 134; i < 185; i++) {
+//       var topHalfGlob = {};
+//       topHalfGlob.basicKey = worksheetTopHalf['A'+ i].v;
+//       topHalfGlob.half_two = worksheetTopHalf['G'+ i].v
+//       topHalfGlob.half_two_plus = worksheetTopHalf['I'+ i].v
+//       topHalfGlobs.push(topHalfGlob);
+// };
+
+// for (var i = 195; i < 237; i++) {
+//       var topHalfGlob = {};
+//       topHalfGlob.basicKey = worksheetTopHalf['A'+ i].v;
+//       topHalfGlob.half_two = worksheetTopHalf['G'+ i].v
+//       topHalfGlob.half_two_plus = worksheetTopHalf['I'+ i].v
+//       topHalfGlobs.push(topHalfGlob);
+// };
+
+// topHalfGlobs.forEach(function(i){
+//   var topHalf = new TopHalf({
+//     basicKey:      i.basicKey,
+//     half_two:      i.half_two,
+//     half_two_plus: i.half_two_plus,
+//   });
+//   topHalf.save()
+// });
+
+// console.log(topHalfGlobs)
+
+
+
 app.use('/img', express.static('img'));
 
 app.get('/', function(req, res) {
@@ -138,6 +206,18 @@ app.get('/api/dropDownTwo/:key', function(req, res){
 app.get('/api/dropDownThree/:key', function(req, res){
   Location.find({ firstKey: req.params.key }, function(err, locations){
     res.json(locations);
+  })
+});
+
+app.get('/api/topHalf', function(req, res){
+  TopHalf.find(function(err, topHalfs){
+    res.json(topHalfs)
+  })
+});
+
+app.get('/api/oneTopHalf/:key', function(req, res){
+  TopHalf.find({basicKey: req.params.key}, function(err, topHalf){
+    res.json(topHalf)
   })
 });
 

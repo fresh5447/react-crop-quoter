@@ -1,7 +1,7 @@
 var React = require('react');
 var Two_Data = require('./Two_Data');
 
-Array.prototype.unique = function() {
+Array.prototype.stupidUnique = function() {
     return this.reduce(function(accum, current) {
         if (accum.indexOf(current) < 0) {
             accum.push(current);
@@ -17,7 +17,7 @@ function Two_Display(props){
     newArr.push(props.csData[i].twp);
   };
 
-  var upD = newArr.unique();
+  var upD = newArr.stupidUnique();
 
   upD.unshift("-Select Township-");
 
