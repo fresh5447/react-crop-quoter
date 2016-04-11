@@ -174,32 +174,36 @@ if (process.env.NODE_ENV === 'production') {
 
 
 
-var workbookSR = XLSX.readFile('StateRates.xlsx');
-var first_sheet_name_SR = workbookSR.SheetNames[0];
 
 
-/* Get worksheet */
-var worksheetSR = workbookSR.Sheets[first_sheet_name_SR];
+// STATE RATE STUFFFF
+
+// var workbookSR = XLSX.readFile('StateRates.xlsx');
+// var first_sheet_name_SR = workbookSR.SheetNames[0];
 
 
-var srGlobs =[];
+// /* Get worksheet */
+// var worksheetSR = workbookSR.Sheets[first_sheet_name_SR];
 
 
-for (var i = 2; i < 100; i+=2) {
-      var srGlob = {};
-        srGlob.cityName = worksheetSR['A'+ i].v.trim();
-        srGlob.cityValue = worksheetSR['B'+ i].v * 100;
-        srGlobs.push(srGlob);
-};
+// var srGlobs =[];
 
 
-srGlobs.forEach(function(i){
-  var stateRate = new StateRate({
-    cityName:      i.cityName,
-    cityValue:      i.cityValue,
-  });
-  stateRate.save()
-});
+// for (var i = 2; i < 100; i+=2) {
+//       var srGlob = {};
+//         srGlob.cityName = worksheetSR['A'+ i].v.trim();
+//         srGlob.cityValue = worksheetSR['B'+ i].v * 100;
+//         srGlobs.push(srGlob);
+// };
+
+
+// srGlobs.forEach(function(i){
+//   var stateRate = new StateRate({
+//     cityName:      i.cityName,
+//     cityValue:      i.cityValue,
+//   });
+//   stateRate.save()
+// });
 
 app.use('/img', express.static('img'));
 
