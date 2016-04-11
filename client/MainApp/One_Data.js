@@ -17,7 +17,9 @@ var One_Data = React.createClass({
     })
   },
   onSelectionChange: function(event){
-    this.props.updateOneSelection(event.target.value);
+    var cityKey = event.target.value.substr(0,3);
+    var cityName = event.target.value.substr(3);
+    this.props.updateOneSelection(cityKey, cityName);
   },
   componentDidMount: function(){
     this.getCty_Select_Data();

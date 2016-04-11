@@ -10,10 +10,13 @@ var MainDropDownBox = React.createClass({
       oneSelection: null,
       twoSelection: null,
       threeSelection: null,
+      selectedCityName: null,
     }
   },
-  updateOneSelection: function(newVal) {
-    this.setState({ oneSelection: newVal })
+  updateOneSelection: function(valOne, valTwo) {
+    this.setState({ oneSelection: valOne })
+    this.setState({ selectedCityName: valTwo })
+    console.log("success in setting selectedCityName", valTwo);
   },
   updateTwoSelection: function(newVal) {
     this.setState({ twoSelection: newVal })
@@ -30,7 +33,6 @@ var MainDropDownBox = React.createClass({
   },
   showThree: function() {
     if(this.state.twoSelection) {
-      console.log("trying to show drop down three")
       return <Three_Data updateThreeSelection={this.updateThreeSelection} keyOne={ this.state.oneSelection } keyTwo={ this.state.twoSelection }/>
     } else {
       return null;
@@ -39,7 +41,7 @@ var MainDropDownBox = React.createClass({
   showOatBox: function() {
     if(this.state.threeSelection) {
       var urlKey = this.state.oneSelection + this.state.twoSelection + this.state.threeSelection;
-      return <OatBox urlKey={urlKey} />
+      return <OatBox urlKey={urlKey} selectedCityName={this.state.selectedCityName}/>
     }
   },
   resetQuote: function(){
@@ -48,7 +50,7 @@ var MainDropDownBox = React.createClass({
   render: function() {
     return (
       <div>
-        <button onClick={this.resetQuote.bind(this)} type="button" className="btn btn-secondary-outline">Reset</button>
+        <button onClick={this.resetQuote.bind(this)} type="button" className="btn btn-secondary-outline my-reset-btn">Reset Location</button>
         <One_Data updateOneSelection={ this.updateOneSelection } />
         { this.showTwo() }
         { this.showThree() }

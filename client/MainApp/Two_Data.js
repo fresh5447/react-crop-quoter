@@ -8,7 +8,6 @@ var Two_Data = React.createClass({
     }
   },
   get_Select_Data: function() {
-    console.log("About to get dd 2 data");
     var self = this;
     $.ajax({
       url: '/api/dropDownTwo/' + this.props.urlKey,
