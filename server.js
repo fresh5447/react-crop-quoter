@@ -30,6 +30,7 @@ var StateRate = require('./models/stateRates');
 
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in production mode');
+  app.use('/static', express.static(__dirname + '/static'));
 } else {
   // When not in production, enable hot reloading
 
