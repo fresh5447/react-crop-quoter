@@ -1,6 +1,6 @@
-
 var React = require('react');
 var ShowGrain = require('./ShowGrain');
+var QuoteBox = require('./QuoteBox');
 
 
 var OatBox = React.createClass({
@@ -73,6 +73,15 @@ var OatBox = React.createClass({
       return null;
     }
   },
+  showingQuoter: function() {
+    if(this.state.showWhich === 'wheat') {
+      return this.state.basicWheatVal ? <QuoteBox grain={this.state.wheat} topHalf={this.state.basicWheatVal[0].half_two} stateRate={this.state.stateRate}/> : null
+    } else if(this.state.showWhich === 'barley') {
+      return this.state.basicWheatVal ? <QuoteBox grain={this.state.barley} topHalf={this.state.basicBarleyVal[0].half_two} stateRate={this.state.stateRate}/> : null
+    } else {
+      return null;
+    }
+  },
   toggleGrain: function(name) {
     return this.setState({showWhich: name})
   },
@@ -88,6 +97,9 @@ var OatBox = React.createClass({
               </div>
               <div className="row">
                 { this.showingGrain() }
+              </div>
+              <div className="row">
+                { this.showingQuoter() }
               </div>
             </div>
           </div>

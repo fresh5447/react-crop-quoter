@@ -1,16 +1,20 @@
 var React = require('react');
 
+
 function ShowGrain(props){
+  var arrOfGrains = [];
+  window.arG = arrOfGrains;
   var tableHeads = props.grain.map(function(item){
     return <th> { Object.keys(item) } </th>
   });
   var tableBody = props.grain.map(function(item){
     var arKey = Object.keys(item);
+    arrOfGrains.push( item[arKey] )
     return <td> { item[arKey] } </td>
   });
     return (
       <div className="container myContainer">
-        <table className="table table-hover my-table">
+        <table className="table table-striped my-table">
           <thead> <h3> rain & hail </h3> <p> { props.name } </p>
             <tr>
               { tableHeads }
@@ -23,7 +27,7 @@ function ShowGrain(props){
 
           </tbody>
         </table>
-        <table className="table table-hover my-table">
+        <table className="table table-striped my-table">
           <thead> <h3>  top half rates </h3> 
             <tr>
               <th> crop value 2.0 </th>
@@ -38,7 +42,7 @@ function ShowGrain(props){
             
           </tbody>
         </table>
-        <table className="table table-hover my-table">
+        <table className="table table-striped my-table">
           <thead> <h3> State Rate </h3>
           </thead>
           <tbody>
