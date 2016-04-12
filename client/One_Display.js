@@ -12,7 +12,7 @@ function One_Display(props){
         <div className="jumbotron my-jumbo">
           <div className="container ">
           <div>
-            <h1 className="oat-btns center-stuff">crop quoter</h1>
+            <h3 className="oat-btns center-stuff">crop quoter</h3>
           </div>
 
             <form>

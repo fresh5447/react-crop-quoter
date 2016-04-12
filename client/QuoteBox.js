@@ -3,16 +3,15 @@ var React = require('react');
 var QuoteBox = React.createClass({
   render: function() {
     var cost = this.props.stateRate * 0.75;
-    window.grain = this.props.grain;
+    var costt = cost.toString().substr(0,4);
+
+    console.log("GRAIN", this.props.grain)
     return (
       <div className="">
         <div className="container">
-          <h3>Compare Quotes</h3>
-          <h5> State </h5>
-          <p>$75 per acre at State Rate of { this.props.stateRate } </p>
-          <p> Would cost you ${ cost } per acre </p>
-          <h5> Other Products </h5>
-          <p> If you spent the same per acre you could get </p>
+          <h3>Rate Comparison</h3>
+          <h5> State </h5> <p>$75 per acre at State Rate of { this.props.stateRate } Would cost you ${ costt } per acre </p>
+          <h5> Other Products  at $75 </h5>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -28,10 +27,10 @@ var QuoteBox = React.createClass({
               <tr>
                 <td> <em> Liabiltiy Per/Acre </em> </td>
                 <td> <em>  $75 </em>  </td>
-                <td>  <em> $$$ { this.props.grain[0][Object.keys(grain[0])] } </em>  </td>
+                <td>  <em> $$$ { this.props.grain[0][Object.keys(this.props.grain[0])] } </em>  </td>
                 <td>  <em> $$$ { this.props.topHalf } </em> </td>
-                <td>  <em> $$$ { this.props.grain[2][Object.keys(grain[2])] } </em>  </td>
-                <td> <em> $$$ { this.props.grain[5][Object.keys(grain[5])] } </em>  </td>
+                <td>  <em> $$$ { this.props.grain[2][Object.keys(this.props.grain[2])] } </em>  </td>
+                <td> <em> $$$ { this.props.grain[5][Object.keys(this.props.grain[5])] } </em>  </td>
               </tr>
               <tr>
                 <td>10%</td>
@@ -92,19 +91,19 @@ var QuoteBox = React.createClass({
               <tr>
                 <td> <strong> Rates </strong> </td>
                 <td> <strong> { this.props.stateRate } </strong> </td>
-                <td> <strong> { this.props.grain[0][Object.keys(grain[0])] } </strong> </td>
+                <td> <strong> { this.props.grain[0][Object.keys(this.props.grain[0])] } </strong> </td>
                 <td> <strong> { this.props.topHalf } </strong> </td>
-                <td> <strong> { this.props.grain[2][Object.keys(grain[2])] } </strong> </td>
-                <td> <strong> { this.props.grain[5][Object.keys(grain[5])] } </strong> </td>
+                <td> <strong> { this.props.grain[2][Object.keys(this.props.grain[2])] } </strong> </td>
+                <td> <strong> { this.props.grain[5][Object.keys(this.props.grain[5])] } </strong> </td>
               </tr>
             </tbody>
           </table>
           <div className="row">
-                <p> <strong> $75 per acre is the Maximum you can buy of State Value </strong> </p>
-                <p> <strong> Discounts available with Non-State Value Programs </strong> </p>
-                <p> <em> Cash with application results  a 6% discount on premium</em> </p>
-                <p> <em> Cash with application is due 7/1/11</em> </p>
-              </div>
+                 <strong> <p> $75 per acre is the Maximum you can buy of State Value </p> </strong>
+                 <strong> <p> Discounts available with Non-State Value Programs </p> </strong>
+                 <em> <p> Cash with application results  a 6% discount on premium </p> </em>
+                 <em> <p> Cash with application is due 7/1/11 </p> </em>
+          </div>
         </div>
       </div>
       )
