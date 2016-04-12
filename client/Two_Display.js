@@ -19,7 +19,7 @@ function Two_Display(props){
 
   var upD = newArr.stupidUnique();
 
-  upD.unshift("-Select Township-");
+  upD.unshift("-Select-");
 
   var twpItems = upD.map(function(i){
       return <option value={ i } key={i}>{i}</option>
@@ -27,10 +27,9 @@ function Two_Display(props){
     return (
             <div className="jumbotron">
               <div className="container">
-                <h1>township</h1>
                   <form>
                     <fieldset className="form-group">
-                      <label htmlFor="">Township</label>
+                      <label htmlFor="">township</label>
                       <select onChange={ props.onSelectionChange } className="form-control">
                         { twpItems }
                       </select>

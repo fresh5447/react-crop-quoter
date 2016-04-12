@@ -1,4 +1,4 @@
-var React = require('React');
+var React = require('react');
 var One_Data = require('./One_Data');
 var Two_Data = require('./Two_Data');
 var Three_Data = require('./Three_Data');

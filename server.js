@@ -18,7 +18,6 @@ mongoose.connect(mongooseUri, options);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/static', express.static(__dirname + '/static'));
 
 var XLSX = require('xlsx');
 
@@ -266,6 +265,8 @@ app.get('/api/oneStateRate/:key', function(req, res){
     res.json(sr)
   })
 });
+
+
 
 var port = process.env.PORT || 3000;
 

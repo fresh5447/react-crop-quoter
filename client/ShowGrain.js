@@ -11,7 +11,7 @@ function ShowGrain(props){
     return (
       <div className="container myContainer">
         <table className="table table-hover my-table">
-          <thead> <h3> rain & hail </h3>
+          <thead> <h3> rain & hail </h3> <p> { props.name } </p>
             <tr>
               { tableHeads }
             </tr>

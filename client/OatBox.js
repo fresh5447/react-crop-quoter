@@ -66,7 +66,7 @@ var OatBox = React.createClass({
   },
   showingGrain: function() {
     if(this.state.showWhich === 'wheat') {
-      return this.state.basicWheatVal ? <ShowGrain stateRate={this.state.stateRate} name={ "Wheat" } half_two={this.state.basicWheatVal[0].half_two} half_two_plus={this.state.basicWheatVal[0].half_two_plus} grain={ this.state.wheat }/> : null;
+      return this.state.basicWheatVal ? <ShowGrain stateRate={this.state.stateRate} name={ "wheat" } half_two={this.state.basicWheatVal[0].half_two} half_two_plus={this.state.basicWheatVal[0].half_two_plus} grain={ this.state.wheat }/> : null;
     } else if(this.state.showWhich === 'barley') {
       return this.state.basicBarleyVal ? <ShowGrain stateRate={this.state.stateRate} name={ "barley" } half_two={this.state.basicBarleyVal[0].half_two} half_two_plus={this.state.basicBarleyVal[0].half_two_plus}  grain={ this.state.barley }/> : null;
     } else {
@@ -81,9 +81,9 @@ var OatBox = React.createClass({
           <div className="jumbotron">
             <div className="container">
               <div className="row">
-                <div className="btn-group center-block">
-                  <button onClick={this.toggleGrain.bind(this, 'wheat')} type="button" className="btn btn-secondary-outline stn-btn"><h1>wheat</h1></button>
-                  <button onClick={this.toggleGrain.bind(this, 'barley')} type="button" className="btn btn-secondary-outline stn-btn"><h1>barley</h1></button>
+                <div className="btn-group center-stuff">
+                  <button onClick={this.toggleGrain.bind(this, 'wheat')} type="button" className="btn btn-secondary-outline stn-btn "><h5>wheat</h5></button>
+                  <button onClick={this.toggleGrain.bind(this, 'barley')} type="button" className="btn btn-secondary-outline stn-btn "><h5>barley</h5></button>
                 </div>
               </div>
               <div className="row">
