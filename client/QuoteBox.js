@@ -4,6 +4,28 @@ var QuoteBox = React.createClass({
   showPrice: function(cost, rate){
     return console.log("COSTL", cost, "RATE:", rate)
   },
+  getValForLiability: function(product, rate){
+    if(product === 'state'){
+      return 75
+    } else {
+      var cpa = 75 * this.props.stateRate;
+      var total = cpa / rate;
+      return total
+    }
+  },
+  getLiability: function(product, rate){
+    if(product === 'state'){
+      return <td> <em>  $75 </em>  </td>
+    } else {
+      var cpa = 75 * this.props.stateRate;
+      var total = cpa / rate;
+      return <td> <em>  { total } </em>  </td>
+    }
+  },
+  getLossValue: function(productValue, percent){
+    var tots = productValue * percent
+    return <td> ${ tots } </td>
+  },
   render: function() {
     var dollars = 75;
     var cost = this.props.stateRate * 0.75;
@@ -52,15 +74,15 @@ var QuoteBox = React.createClass({
             <tbody>
               <tr>
                 <td> <em> Liabiltiy Per/Acre </em> </td>
-                <td> <em>  ${ dollars } </em>  </td>
-                <td>  <em> ${ firstOne.toString().substr(0,5) } </em>  </td>
-                <td>  <em> ${ secondOne.toString().substr(0,5) } </em> </td>
-                <td>  <em> ${ thirdOne.toString().substr(0,5) } </em>  </td>
-                <td> <em> ${ fourthOne.toString().substr(0,5) } </em>  </td>
+                { this.getLiability('state') }
+                { this.getLiability('base', basicRate ) }
+                { this.getLiability('topHalf', topHalf ) }
+                { this.getLiability('dda', dda ) }
+                { this.getLiability('xs', xs ) }
               </tr>
               <tr>
                 <td>10%</td>
-                <td> ${dollars * .10} </td>
+                { this.getLossValue(this.getValForLiability('state'), .10) }
                 <td> ${(firstOne * .10).toString().substr(0,4)} </td>
                 <td> ${(secondOne * .10).toString().substr(0,4)} </td>
                 <td> $-</td>
@@ -68,7 +90,7 @@ var QuoteBox = React.createClass({
               </tr>
               <tr>
                 <td>20%</td>
-                <td> ${dollars * .20} </td>
+                { this.getLossValue(this.getValForLiability('state'), .20) }
                 <td> ${(firstOne * .20).toString().substr(0,4)} </td>
                 <td> ${(secondOne * .30).toString().substr(0,4)} </td>
                 <td> ${(thirdOne * .10).toString().substr(0,4)} </td>
@@ -76,7 +98,7 @@ var QuoteBox = React.createClass({
               </tr>
               <tr>
                 <td>30%</td>
-                <td> ${dollars * .30} </td>
+                { this.getLossValue(this.getValForLiability('state'), .30) }
                 <td> ${(firstOne * .30).toString().substr(0,4)} </td>
                 <td> ${(secondOne * .50).toString().substr(0,4)} </td>
                 <td> ${(thirdOne * .30).toString().substr(0,4)} </td>
@@ -84,7 +106,7 @@ var QuoteBox = React.createClass({
               </tr>
               <tr>
                 <td>40%</td>
-                <td> ${dollars * .40} </td>
+                { this.getLossValue(this.getValForLiability('state'), .40) }
                 <td> ${(firstOne * .40).toString().substr(0,4)} </td>
                 <td> ${(secondOne * .70).toString().substr(0,4)} </td>
                 <td> ${(thirdOne * .40).toString().substr(0,4)} </td>
@@ -92,7 +114,7 @@ var QuoteBox = React.createClass({
               </tr>
               <tr>
                 <td>50%</td>
-                <td> ${dollars * .50} </td>
+                { this.getLossValue(this.getValForLiability('state'), .50) }
                 <td> ${(firstOne * .50).toString().substr(0,4)} </td>
                 <td> ${(secondOne * .90).toString().substr(0,4)} </td>
                 <td> ${(thirdOne * .50).toString().substr(0,4)} </td>
@@ -100,7 +122,7 @@ var QuoteBox = React.createClass({
               </tr>
               <tr>
                 <td>60%</td>
-                <td> ${dollars * .60} </td>
+                { this.getLossValue(this.getValForLiability('state'), .60) }
                 <td> ${(firstOne * .60).toString().substr(0,4)} </td>
                 <td> ${secondOne.toString().substr(0,5) } </td>
                 <td> ${(thirdOne * .60).toString().substr(0,4)} </td>
@@ -108,7 +130,7 @@ var QuoteBox = React.createClass({
               </tr>
               <tr>
                 <td>70%</td>
-                <td> ${dollars * .70} </td>
+                { this.getLossValue(this.getValForLiability('state'), .70) }
                 <td> ${(firstOne * .70).toString().substr(0,4)} </td>
                 <td> ${secondOne.toString().substr(0,5) } </td>
                 <td> ${(thirdOne * .70).toString().substr(0,4)} </td>
