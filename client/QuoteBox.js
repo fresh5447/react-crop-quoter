@@ -83,58 +83,58 @@ var QuoteBox = React.createClass({
               <tr>
                 <td>10%</td>
                 { this.getLossValue(this.getValForLiability('state'), .10) }
-                <td> ${(firstOne * .10).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .10).toString().substr(0,4)} </td>
-                <td> $-</td>
+                { this.getLossValue(this.getValForLiability('base', basicRate ), .10) }
+                { this.getLossValue(this.getValForLiability('topHalf', topHalf ), .10) }
+                <td> $- </td>
                 <td> $- </td>
               </tr>
               <tr>
                 <td>20%</td>
                 { this.getLossValue(this.getValForLiability('state'), .20) }
-                <td> ${(firstOne * .20).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .30).toString().substr(0,4)} </td>
-                <td> ${(thirdOne * .10).toString().substr(0,4)} </td>
+                { this.getLossValue(this.getValForLiability('base', basicRate ), .20) }
+                { this.getLossValue(this.getValForLiability('topHalf', topHalf ), .30) }
+                { this.getLossValue(this.getValForLiability('dda', dda), .10) }
                 <td> $- </td>
               </tr>
               <tr>
                 <td>30%</td>
                 { this.getLossValue(this.getValForLiability('state'), .30) }
-                <td> ${(firstOne * .30).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .50).toString().substr(0,4)} </td>
-                <td> ${(thirdOne * .30).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .10).toString().substr(0,4)} </td>
+                { this.getLossValue(this.getValForLiability('base', basicRate ), .30) }
+                { this.getLossValue(this.getValForLiability('topHalf', topHalf ), .50) }
+                { this.getLossValue(this.getValForLiability('dda', dda), .30) }
+                { this.getLossValue(this.getValForLiability('xs', xs ), .10) }
               </tr>
               <tr>
                 <td>40%</td>
                 { this.getLossValue(this.getValForLiability('state'), .40) }
-                <td> ${(firstOne * .40).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .70).toString().substr(0,4)} </td>
-                <td> ${(thirdOne * .40).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .20).toString().substr(0,4)} </td>
+                { this.getLossValue(this.getValForLiability('base', basicRate ), .40) }
+                { this.getLossValue(this.getValForLiability('topHalf', topHalf ), .70) }
+                { this.getLossValue(this.getValForLiability('dda', dda), .40) }
+                { this.getLossValue(this.getValForLiability('xs', xs ), .20) }
               </tr>
               <tr>
                 <td>50%</td>
                 { this.getLossValue(this.getValForLiability('state'), .50) }
-                <td> ${(firstOne * .50).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .90).toString().substr(0,4)} </td>
-                <td> ${(thirdOne * .50).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .30).toString().substr(0,4)} </td>
+                { this.getLossValue(this.getValForLiability('base', basicRate ), .50) }
+                { this.getLossValue(this.getValForLiability('topHalf', topHalf ), .90) }
+                { this.getLossValue(this.getValForLiability('dda', dda), .50) }
+                { this.getLossValue(this.getValForLiability('xs', xs ), .30) }
               </tr>
               <tr>
                 <td>60%</td>
                 { this.getLossValue(this.getValForLiability('state'), .60) }
-                <td> ${(firstOne * .60).toString().substr(0,4)} </td>
-                <td> ${secondOne.toString().substr(0,5) } </td>
-                <td> ${(thirdOne * .60).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .40).toString().substr(0,4)} </td>
+                { this.getLossValue(this.getValForLiability('base', basicRate ), .60) }
+                { this.getLossValue(this.getValForLiability('topHalf', topHalf ), 1) }
+                { this.getLossValue(this.getValForLiability('dda', dda), .60) }
+                { this.getLossValue(this.getValForLiability('xs', xs ), .40) }
               </tr>
               <tr>
                 <td>70%</td>
                 { this.getLossValue(this.getValForLiability('state'), .70) }
-                <td> ${(firstOne * .70).toString().substr(0,4)} </td>
-                <td> ${secondOne.toString().substr(0,5) } </td>
-                <td> ${(thirdOne * .70).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .50).toString().substr(0,4)} </td>
+                { this.getLossValue(this.getValForLiability('base', basicRate ), .70) }
+                { this.getLossValue(this.getValForLiability('topHalf', topHalf ), 1) }
+                { this.getLossValue(this.getValForLiability('dda', dda), .70) }
+                { this.getLossValue(this.getValForLiability('xs', xs ), .50) }
               </tr>
               <tr>
                 <td> <strong> Rates </strong> </td>
