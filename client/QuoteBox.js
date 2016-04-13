@@ -63,56 +63,56 @@ var QuoteBox = React.createClass({
                 <td> ${dollars * .10} </td>
                 <td> ${(firstOne * .10).toString().substr(0,4)} </td>
                 <td> ${(secondOne * .10).toString().substr(0,4)} </td>
-                <td> ${(thirdOne * .10).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .10).toString().substr(0,4)} </td>
+                <td> $-</td>
+                <td> $- </td>
               </tr>
               <tr>
                 <td>20%</td>
                 <td> ${dollars * .20} </td>
                 <td> ${(firstOne * .20).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .20).toString().substr(0,4)} </td>
-                <td> ${(thirdOne * .20).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .20).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .30).toString().substr(0,4)} </td>
+                <td> ${(thirdOne * .10).toString().substr(0,4)} </td>
+                <td> $- </td>
               </tr>
               <tr>
                 <td>30%</td>
                 <td> ${dollars * .30} </td>
                 <td> ${(firstOne * .30).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .30).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .50).toString().substr(0,4)} </td>
                 <td> ${(thirdOne * .30).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .30).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .10).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>40%</td>
                 <td> ${dollars * .40} </td>
                 <td> ${(firstOne * .40).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .40).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .70).toString().substr(0,4)} </td>
                 <td> ${(thirdOne * .40).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .40).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .20).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>50%</td>
                 <td> ${dollars * .50} </td>
                 <td> ${(firstOne * .50).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .50).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .90).toString().substr(0,4)} </td>
                 <td> ${(thirdOne * .50).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .50).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .30).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>60%</td>
                 <td> ${dollars * .60} </td>
                 <td> ${(firstOne * .60).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .60).toString().substr(0,4)} </td>
+                <td> ${secondOne.toString().substr(0,5) } </td>
                 <td> ${(thirdOne * .60).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .60).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .40).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>70%</td>
                 <td> ${dollars * .70} </td>
                 <td> ${(firstOne * .70).toString().substr(0,4)} </td>
-                <td> ${(secondOne * .70).toString().substr(0,4)} </td>
+                <td> ${secondOne.toString().substr(0,5) } </td>
                 <td> ${(thirdOne * .70).toString().substr(0,4)} </td>
-                <td> ${(fourthOne * .70).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .50).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td> <strong> Rates </strong> </td>
