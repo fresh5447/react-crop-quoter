@@ -1,9 +1,35 @@
 var React = require('react');
 
 var QuoteBox = React.createClass({
+  showPrice: function(cost, rate){
+    return console.log("COSTL", cost, "RATE:", rate)
+  },
   render: function() {
+    var dollars = 75;
     var cost = this.props.stateRate * 0.75;
     var costt = cost.toString().substr(0,4);
+    var stateRate = this.props.stateRate;
+    var basicRate = this.props.grain[0][Object.keys(this.props.grain[0])];
+    var topHalf = this.props.topHalf;
+    var dda = this.props.grain[2][Object.keys(this.props.grain[2])];
+    var xs = this.props.grain[5][Object.keys(this.props.grain[5])];
+
+    var outPutBasic = dollars * Number(stateRate)*.01
+    var totalBasic = outPutBasic /  Number(basicRate)*.01
+    var firstOne = totalBasic * 10000;
+
+    var outPutTop = dollars * Number(stateRate)*.01
+    var totalTop = outPutTop /  Number(topHalf)*.01
+    var secondOne = totalTop * 10000;
+
+    var outPutThird = dollars * Number(stateRate)*.01
+    var totalThird = outPutThird /  Number(dda)*.01
+    var thirdOne = totalThird * 10000;
+
+    var outPutFourth = dollars * Number(stateRate)*.01
+    var totalFourth = outPutFourth /  Number(xs)*.01
+    var fourthOne = totalFourth * 10000;
+
 
     console.log("GRAIN", this.props.grain)
     return (
@@ -26,75 +52,75 @@ var QuoteBox = React.createClass({
             <tbody>
               <tr>
                 <td> <em> Liabiltiy Per/Acre </em> </td>
-                <td> <em>  $75 </em>  </td>
-                <td>  <em> $$$ { this.props.grain[0][Object.keys(this.props.grain[0])] } </em>  </td>
-                <td>  <em> $$$ { this.props.topHalf } </em> </td>
-                <td>  <em> $$$ { this.props.grain[2][Object.keys(this.props.grain[2])] } </em>  </td>
-                <td> <em> $$$ { this.props.grain[5][Object.keys(this.props.grain[5])] } </em>  </td>
+                <td> <em>  ${ dollars } </em>  </td>
+                <td>  <em> ${ firstOne.toString().substr(0,5) } </em>  </td>
+                <td>  <em> ${ secondOne.toString().substr(0,5) } </em> </td>
+                <td>  <em> ${ thirdOne.toString().substr(0,5) } </em>  </td>
+                <td> <em> ${ fourthOne.toString().substr(0,5) } </em>  </td>
               </tr>
               <tr>
                 <td>10%</td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
+                <td> ${dollars * .10} </td>
+                <td> ${(firstOne * .10).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .10).toString().substr(0,4)} </td>
+                <td> ${(thirdOne * .10).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .10).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>20%</td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
+                <td> ${dollars * .20} </td>
+                <td> ${(firstOne * .20).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .20).toString().substr(0,4)} </td>
+                <td> ${(thirdOne * .20).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .20).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>30%</td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
+                <td> ${dollars * .30} </td>
+                <td> ${(firstOne * .30).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .30).toString().substr(0,4)} </td>
+                <td> ${(thirdOne * .30).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .30).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>40%</td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
+                <td> ${dollars * .40} </td>
+                <td> ${(firstOne * .40).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .40).toString().substr(0,4)} </td>
+                <td> ${(thirdOne * .40).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .40).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>50%</td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
+                <td> ${dollars * .50} </td>
+                <td> ${(firstOne * .50).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .50).toString().substr(0,4)} </td>
+                <td> ${(thirdOne * .50).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .50).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>60%</td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
+                <td> ${dollars * .60} </td>
+                <td> ${(firstOne * .60).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .60).toString().substr(0,4)} </td>
+                <td> ${(thirdOne * .60).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .60).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td>70%</td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
-                <td> val </td>
+                <td> ${dollars * .70} </td>
+                <td> ${(firstOne * .70).toString().substr(0,4)} </td>
+                <td> ${(secondOne * .70).toString().substr(0,4)} </td>
+                <td> ${(thirdOne * .70).toString().substr(0,4)} </td>
+                <td> ${(fourthOne * .70).toString().substr(0,4)} </td>
               </tr>
               <tr>
                 <td> <strong> Rates </strong> </td>
-                <td> <strong> { this.props.stateRate } </strong> </td>
-                <td> <strong> { this.props.grain[0][Object.keys(this.props.grain[0])] } </strong> </td>
-                <td> <strong> { this.props.topHalf } </strong> </td>
-                <td> <strong> { this.props.grain[2][Object.keys(this.props.grain[2])] } </strong> </td>
-                <td> <strong> { this.props.grain[5][Object.keys(this.props.grain[5])] } </strong> </td>
+                <td> <strong> { stateRate } </strong> </td>
+                <td> <strong> { basicRate } </strong> </td>
+                <td> <strong> { topHalf } </strong> </td>
+                <td> <strong> { dda } </strong> </td>
+                <td> <strong> { xs } </strong> </td>
               </tr>
             </tbody>
           </table>
