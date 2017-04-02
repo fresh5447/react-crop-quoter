@@ -4,24 +4,15 @@ var bodyParser = require('body-parser');
 var app = express();
 var XLSX = require('xlsx');
 
+// Express only serves static assets in production
+const isProd = process.env.NODE_ENV === 'production';
+const clientPath = isProd ? 'client/build' : 'client/public';
 
-
-if (process.env.NODE_ENV === 'production') {
-  console.log('Running in production mode');
-  app.use('/static', express.static(__dirname + '/static'));
-} else {
-  // When not in production, enable hot reloading
-
-  var chokidar = require('chokidar');
-  var webpack = require('webpack');
-  var webpackConfig = require('./webpack.config.dev');
-  var compiler = webpack(webpackConfig);
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath
-  }));
-  app.use(require('webpack-hot-middleware')(compiler));
+if (isProd) {
+  app.use(express.static(clientPath));
 }
+
+
 
 //XCEL PARSER STUFF
 var basicWorkbook = XLSX.readFile('./data/basic.xlsx');
@@ -138,12 +129,12 @@ app.get('/api/v2/tophalf', function(req,res){
 
 app.use('/img', express.static('img'));
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.set('port', (process.env.PORT || 3001));
+
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, clientPath, 'index.html'));
 });
 
-var port = process.env.PORT || 3000;
-
-app.listen(port, function(){
-  console.log("🔥🔥🔥🔥\n🔥🔥🔥🔥🔥🔥 fired up 🔥🔥🔥🔥🔥 \n🔥🔥🔥🔥🔥🔥 on " + port + " 🔥🔥🔥\n🔥🔥🔥🔥🔥")
+app.listen(app.get('port'), () => {
+  console.log(`🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });
