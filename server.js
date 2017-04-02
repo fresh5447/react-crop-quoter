@@ -27,7 +27,7 @@ function makeBasicData(){
   let cityData = [];
 
 
-  for (var i = 7; i <= 3738; i++) {
+  for (var i = 6; i <= 3738; i++) {
     // first check if row is City Header Row
 
     // check if cty header is not all other or value/ then make city.
