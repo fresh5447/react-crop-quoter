@@ -1,0 +1,83 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: red;
+
+$primary: #2c3e50;
+$secondary: #34495e;
+$accent: #9b59b6;
+$background: #ecf0f1;
+$foreground: #95a5a6;
+
+.maximum-effort {
+  color: green;
+  font-weight: 800;
+  background-color: #5cb85c;
+}
+
+.my-table > td {
+  text-align: center;
+}
+
+body {
+  font: 100% $primary;
+  background: $background;
+}
+
+
+.my-jumbo {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.next-jumbo {
+  padding-bottom: 1000px;
+}
+
+.my-table {
+  margin-top: 10px;
+}
+
+.jumbotron {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+fieldset {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-stuff {
+  display: flex;
+  justify-content: center;
+}
+
+.stn-btn {
+    color: white;
+    background-color: #2c3e50;
+    background-image: none;
+    border-color: #2c3e50;
+    border-radius: 1rem;
+    top: 5%;
+    right: 12%;
+    position: fixed;
+}
+
+.style-btn {
+    color: white;
+    background-color: #2c3e50;
+    background-image: none;
+    border-color: #2c3e50;
+    border-radius: 1rem;
+}
+
+.oat-btns {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+my-reset-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
