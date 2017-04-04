@@ -68,8 +68,29 @@ function makeBasicData(){
   }
   return { basicInfo: basicData, basicCities: cityData }
 }
+var stateRateWorkBook = XLSX.readFile('./data/stateRates17.xlsx');
+var stateRatesSheet = stateRateWorkBook.SheetNames[0];
+/* Get worksheet */
+var stateRateCells = stateRateWorkBook.Sheets[stateRatesSheet];
+/* Find desired cell */
+var cellValue = ( stateRateCells['A2'] ?  stateRateCells['A2'].v : undefined);
+
+function makeStateRates() {
+  var stateRates = [];
+
+  for (var i = 2; i <= 51; i++) {
+      const obj = {
+        city: ( stateRateCells[`A${i}`] ?  stateRateCells[`A${i}`].v : undefined),
+        rate: ( stateRateCells[`B${i}`] ?  (stateRateCells[`B${i}`].v * 100) : undefined)
+      }
+      stateRates.push(obj);
+    }
+  return stateRates;
+}
+
 
 var tophalfWorkbook = XLSX.readFile('./data/tophalfRate.xlsx');
+
 var tophalfSheet = tophalfWorkbook.SheetNames[0];
 /* Get worksheet */
 var tophalfCells = tophalfWorkbook.Sheets[tophalfSheet];
@@ -115,6 +136,30 @@ app.get('/api/v2/basic/:key', function(req,res){
     res.send("Somethign is wrong");
   } else {
     res.json(oneData);
+  }
+});
+
+app.get('/api/v2/state', function(req,res){
+  var data = makeStateRates();
+  if(!data){
+    res.send("Something is wrong");
+  } else {
+    res.json(data);
+  }
+});
+
+app.get('/api/v2/state/:city', function(req,res){
+  var data = makeStateRates();
+  if(!data){
+    res.send("Something is wrong");
+  } else {
+  var foundItem = data.find((item) => {
+      return item.city === req.params.city
+    })
+    if(!foundItem) {
+      res.json({msg: "No rate for this city"})
+    }
+    res.json(foundItem);
   }
 });
 
