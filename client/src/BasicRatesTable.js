@@ -4,7 +4,7 @@ const BasicRatesTable = (props) => {
   return (
     <div className="App">
       <div className="App">
-        <h3> Here's your wheat options </h3>
+        <h3> Here's your {props.title} options </h3>
         <table className="my-table">
           <thead>
             <tr>

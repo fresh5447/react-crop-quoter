@@ -15,6 +15,7 @@ class App extends Component {
       baseTownSelection: null,
       baseRgeSelection: null,
       totalBasicRate: null,
+      viewWhich: "wheat",
       count: 0
     }
     this.onFieldChange = this.onFieldChange.bind(this);
@@ -79,6 +80,23 @@ class App extends Component {
       return item.baseKey === this.state.totalBasicRate.barley.basic
     })
     return barleyTopRate.topRate.toFixed(2);
+  }
+  showTableToggle() {
+    if(this.state.viewWhich === "wheat"){
+      return (
+        <div>
+          <button onClick={() => this.setState({viewWhich: 'barley'}) }> Show Barley </button>
+        </div>
+      )
+    } else if (this.state.viewWhich === "barley") {
+      return (
+        <div>
+          <button onClick={() => this.setState({viewWhich: 'wheat'}) }> show wheat </button>
+        </div>
+      )
+    } else {
+      return
+    }
   }
   render() {
 
@@ -145,8 +163,9 @@ class App extends Component {
 
         { this.state.totalBasicRate ? (
             <div>
-              <BasicRatesTable items={this.state.totalBasicRate.wheat}/>
-              <BasicRatesTable items={this.state.totalBasicRate.barley}/>
+              { this.showTableToggle() }
+              { this.state.viewWhich === "wheat" ? <BasicRatesTable items={this.state.totalBasicRate.wheat} title="wheat"/> : null }
+              { this.state.viewWhich === "barley" ? <BasicRatesTable items={this.state.totalBasicRate.barley} title="barley"/> : null }
             </div> ) : null }
 
       </div>
