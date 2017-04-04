@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import DropDown from './DropDown';
 import logo from './logo.svg';
 import './App.css';
+import BasicRatesTable from './BasicRatesTable';
 
 class App extends Component {
   constructor(props){
@@ -15,6 +17,7 @@ class App extends Component {
       totalBasicRate: null,
       count: 0
     }
+    this.onFieldChange = this.onFieldChange.bind(this);
   }
   componentDidMount() {
     this.loadBase();
@@ -57,6 +60,14 @@ class App extends Component {
         return e
       })
   }
+
+  onFieldChange(fieldName, fieldValue) {
+    console.log(fieldName, fieldValue);
+    const newState = {};
+    newState[fieldName] = fieldValue;
+    this.setState(newState);
+  }
+
   getTopWheatRate() {
     const wheatTopRate = this.state.topHalfData.find((item) => {
       return item.baseKey === this.state.totalBasicRate.wheat.basic
@@ -70,9 +81,6 @@ class App extends Component {
     return barleyTopRate.topRate.toFixed(2);
   }
   render() {
-    const base1Options = this.state.basicCities ? this.state.basicCities.map(d => {
-      return <option value={ d.key }>{ d.city }</option>
-    }) : <option value="na">loading...</option>;
 
     const base2Options = this.state.baseCtySelection ? this.state.basicInfo.filter(i => {
       var selectedCity = this.state.baseCtySelection;
@@ -95,27 +103,28 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>McMeel Insurance Crop Quoter</h2>
         </div>
-        <p className="App-intro">
-
-        </p>
 
         <div>
-          <h3> Select Your County </h3>
-          <select onChange={ (e) => this.setState({baseCtySelection: e.target.value}) }>
-            <option defaultValue="-">-</option>;
-            { base1Options }
-          </select>
+          <h3> Select Count</h3>
+          <DropDown onFieldChange={this.onFieldChange} selectionToUpdate="baseCtySelection">
+            { this.state.basicCities ? this.state.basicCities.map(d => {
+                return <option value={ d.key }>{ d.city }</option>
+              }) : <option value="na">loading...</option>
+            }
+          </DropDown>
         </div>
 
-        { this.state.baseCtySelection ? (
+
+          { this.state.baseCtySelection ? (
           <div>
-            <h3> Select Your Township </h3>
-            <select onChange={ (e) => this.setState({baseTownSelection: e.target.value}) }>
-              <option defaultValue="-">-</option>;
+            <h3> Select Township </h3>
+            <DropDown onFieldChange={this.onFieldChange} selectionToUpdate="baseTownSelection">
               { base2Options }
-            </select>
-          </div>
-        ) : null }
+            </DropDown>
+            </div>
+            ) : null
+          }
+
 
         { this.state.baseTownSelection ? (
           <div>
@@ -135,82 +144,10 @@ class App extends Component {
 
 
         { this.state.totalBasicRate ? (
-          <div className="App">
-            <div className="App">
-              <h3> Here's your wheat options </h3>
-              <table className="my-table">
-                <thead>
-                  <tr>
-                    <th>Basic</th>
-                    <th>DXS5</th>
-                    <th>DDA</th>
-                    <th>DXS10</th>
-                    <th>DD20</th>
-                    <th>XS20IP</th>
-                    <th>80MIN</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{ "$" +  this.state.totalBasicRate.wheat.basic.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.wheat.dxs5.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.wheat.dda.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.wheat.dxs10.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.wheat.dd20.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.wheat.xs20ip.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.wheat.eightyMin.toFixed(2) }</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
             <div>
-              <h3> Here's your barley options </h3>
-              <table className="my-table">
-                <thead>
-                  <tr>
-                    <th>Basic</th>
-                    <th>DXS5</th>
-                    <th>DDA</th>
-                    <th>DXS10</th>
-                    <th>DD20</th>
-                    <th>XS20IP</th>
-                    <th>80MIN</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{ "$" +  this.state.totalBasicRate.barley.basic.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.barley.dxs5.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.barley.dda.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.barley.dxs10.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.barley.dd20.toFixed(2) }</td>
-                    <td>{ "$" +  this.state.totalBasicRate.barley.xs20ip.toFixed(2) }</td>
-                    <td>{ "$" + this.state.totalBasicRate.barley.eightyMin.toFixed(2) }</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        ) : null }
-
-        { this.state.totalBasicRate ? (
-        <div className="App">
-          <h3> Top Half Companion </h3>
-          <table className="my-table">
-            <thead>
-              <tr>
-                <th>Basic Wheat @ { "$" +  this.state.totalBasicRate.wheat.basic.toFixed(2) }</th>
-                <th>Basic Barley @ { "$" +  this.state.totalBasicRate.barley.basic.toFixed(2) }   </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>top 1/2 for wheat { this.getTopWheatRate() }</td>
-                <td>top half for barley { this.getTopBarleyRate() }</td>
-              </tr>
-            </tbody>
-          </table>
-        </div> ) : null }
+              <BasicRatesTable items={this.state.totalBasicRate.wheat}/>
+              <BasicRatesTable items={this.state.totalBasicRate.barley}/>
+            </div> ) : null }
 
       </div>
     );
