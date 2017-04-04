@@ -20,3 +20,5 @@ for (var i = 0; i < nums.length; i++) {
 };
 
 console.log(newArr.unique());
+
+console.log("SAMPLE");
