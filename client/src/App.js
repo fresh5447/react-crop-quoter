@@ -4,6 +4,16 @@ import logo from './logo.svg';
 import './App.css';
 import BasicRatesTable from './BasicRatesTable';
 
+
+// var filteredArray = arr.filter(function(item, pos){
+//   return arr.indexOf(item)== pos;
+// });
+
+// var sorts = ns.sort(function(a,b){
+//  return (a[3] > b[3] ) ? 1 : -1
+// })
+//
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -99,17 +109,18 @@ class App extends Component {
     }
   }
   render() {
+    // .filter((item, pos) => this.state.basicInfo.indexOf(pos) == pos)).
 
-    const base2Options = this.state.baseCtySelection ? this.state.basicInfo.filter(i => {
+    const base2Options = this.state.baseCtySelection ? this.state.basicInfo.filter((i, pos) => {
       var selectedCity = this.state.baseCtySelection;
-      return i.key.substring(0,3) === selectedCity;
-    }).map(d => {
+      return i.key.substring(0,3) === selectedCity ;
+    }).filter((item, pos, arr) => arr.indexOf(item) == pos).map(d => {
       return <option value={ d.key.substring(3,7) }>{ d.key.substring(3,7)}</option>
     }) : <option value="na">loading...</option>;
 
-    const base3Options = this.state.baseTownSelection ? this.state.basicInfo.filter(i => {
+    const base3Options = this.state.baseTownSelection ? this.state.basicInfo.filter((i, pos) => {
       var selectedTown = this.state.baseTownSelection;
-      return i.key.substring(3,7) === selectedTown;
+      return ( i.key.substring(3,7) === selectedTown ) && ( this.state.basicInfo.indexOf(i)== pos);
     }).map(d => {
       return <option value={ d.key.substring(7,11) }>{ d.key.substring(7,11)}</option>
     }) : <option value="na">loading...</option>;
