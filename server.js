@@ -140,12 +140,18 @@ app.get('/api/v2/basicCityByKey/:key', function(req,res){
 });
 
 app.get('/api/v2/basic/:key', function(req,res){
+  console.log(typeof req.params.key)
   var data = makeBasicData();
   var oneData = data.basicInfo.find(function(item){
     return item.key === req.params.key
   });
   if(!oneData){
-    res.send("Somethign is wrong");
+    console.log("NO DATA");
+    var lastData = data.basicInfo.filter(function(item){
+      return String(item.key).substring(0,3) === String(req.params.key).substring(0,3)
+    });
+    console.log(lastData, "LASTDATA")
+    res.json(lastData[lastData.length - 1])
   } else {
     res.json(oneData);
   }

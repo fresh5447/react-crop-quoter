@@ -82,8 +82,12 @@ class App extends Component {
         .then(blob => blob.json())
         .then(totalBasicRate => {
           this.setState({ totalBasicRate })
+          console.log(totalBasicRate);
         })
-        .catch(e => e)
+        .catch(e => {
+          console.error(e);
+          return e
+        })
     }
 
   }
@@ -115,16 +119,24 @@ class App extends Component {
     })
     return barleyTopRate.topRate.toFixed(2);
   }
+  clearAllState(){
+    return this.setState({
+      baseCtySelection:  null,
+      baseTownSelection: null,
+      baseRgeSelection:  null,
+      totalBasicRate:    null
+    })
+  }
   showTableToggle() {
     if(this.state.viewWhich === "wheat"){
       return (
-        <div>
+        <div className="App">
           <button className="btn btn-primary" onClick={() => this.setState({viewWhich: 'barley'}) }> Show Barley </button>
         </div>
       )
     } else if (this.state.viewWhich === "barley") {
       return (
-        <div>
+        <div className="App">
           <button className="btn btn-primary" onClick={() => this.setState({viewWhich: 'wheat'}) }> show wheat </button>
         </div>
       )
@@ -149,15 +161,15 @@ class App extends Component {
     }) : <option value="na">loading...</option>;
 
     return (
-      <div className="App">
-
-        <div className="App-header">
+      <div className="">
+        <div className="App App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>McMeel Insurance Crop Quoter</h2>
+          <button className="btn btn-danger" onClick={() => this.clearAllState()}> Reset </button>
         </div>
 
-        <div>
-          <h3> Select Count</h3>
+        <div className="App">
+          <h3> Select County</h3>
           <DropDown onFieldChange={this.onFieldChange} selectionToUpdate="baseCtySelection">
             { this.state.basicCities ? this.state.basicCities.map(d => {
                 return <option value={ d.key }>{ d.city }</option>
@@ -168,7 +180,7 @@ class App extends Component {
 
 
           { this.state.baseCtySelection ? (
-          <div>
+          <div className="App">
             <h3> Select Township </h3>
             <DropDown onFieldChange={this.onFieldChange} selectionToUpdate="baseTownSelection">
               { base2Options }
@@ -179,7 +191,7 @@ class App extends Component {
 
 
         { this.state.baseTownSelection ? (
-          <div>
+          <div className="App">
             <h3> Select Your Range </h3>
             <select onChange={ (e) => {
               this.setState({baseRgeSelection: e.target.value})
@@ -203,7 +215,7 @@ class App extends Component {
 
 
             { this.state.totalBasicRate ? (
-                <div>
+                <div className="App">
                   <button onClick={() => this.getStRate()} className="btn btn-primary"> Show Loss Scenario </button>
                 </div> ) : null }
 

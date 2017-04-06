@@ -4,7 +4,7 @@ const BasicRatesTable = (props) => {
   return (
     <div className="">
       <div className="">
-        <h3> Here's your {props.title} options </h3>
+        <h3 className="App"> Here's your {props.title} options </h3>
         { props.toggle() }
         <table className="table table-striped my-table">
           <thead>
