@@ -4,19 +4,22 @@ import logo from './logo.svg';
 import './App.css';
 import BasicRatesTable from './BasicRatesTable';
 
+
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      basicInfo: null,
-      basicCities: null,
-      topHalfData: null,
-      baseCtySelection: null,
+      basicInfo:         null,
+      basicCities:       null,
+      topHalfData:       null,
+      baseCtySelection:  null,
       baseTownSelection: null,
-      baseRgeSelection: null,
-      totalBasicRate: null,
-      viewWhich: "wheat",
-      count: 0
+      baseRgeSelection:  null,
+      totalBasicRate:    null,
+      viewWhich:         "wheat",
+      stateRate:         null,
+      city:              null,
+      count:             0
     }
     this.onFieldChange = this.onFieldChange.bind(this);
   }
@@ -37,15 +40,45 @@ class App extends Component {
         return e
       })
   }
+  getStRate(){
+    console.log("TYRING TO GRESDGSDF")
+    let cityText = "";
+    let keyy = this.state.baseCtySelection;
+    console.log(keyy, "FOUND GET STATE RATE")
+
+    fetch(`/api/v2/basicCityByKey/${keyy}`)
+      .then(blob => blob.json())
+      .then(data => {
+        cityText = data.city;
+        console.log("in city text", cityText);
+        this.setState({ city: cityText })
+        return cityText
+      })
+      .catch(e => {
+        console.error(e, 'ERROR');
+        return e
+      })
+
+      setTimeout(() => {
+        fetch(`/api/v2/state/${this.state.city}`)
+          .then(blob => blob.json())
+          .then(data => {
+            console.log(data, "DATA GETTING STATE RATE");
+            return this.setState({ stateRate: data })
+          })
+          .catch(e => {
+            console.error(e, 'ERROR');
+            return e
+          })
+      }, 3000);
+
+  }
   getTotalBaseRates() {
     if(this.state.baseCtySelection && this.state.baseTownSelection && this.state.baseRgeSelection){
-      console.log("FOUND GET TOTAL BASE RATES");
       var ting = this.state.baseCtySelection + this.state.baseTownSelection + this.state.baseRgeSelection
-      console.log(ting);
       fetch(`/api/v2/basic/${ting}`)
         .then(blob => blob.json())
         .then(totalBasicRate => {
-          console.log(totalBasicRate, "IN SUCCESS OF GET TOTAL")
           this.setState({ totalBasicRate })
         })
         .catch(e => e)
@@ -63,7 +96,6 @@ class App extends Component {
   }
 
   onFieldChange(fieldName, fieldValue) {
-    console.log(fieldName, fieldValue);
     const newState = {};
     newState[fieldName] = fieldValue;
     this.setState(newState);
@@ -104,7 +136,7 @@ class App extends Component {
       var selectedCity = this.state.baseCtySelection;
       return i.key.substring(0,3) === selectedCity;
     }).map(d => {
-      return <option value={ d.key.substring(3,7) }>{ d.key.substring(3,7)}</option>
+      return <option value={ d.key.substring(3,7) }>{ d.key.substring(3,7) }</option>
     }) : <option value="na">loading...</option>;
 
     const base3Options = this.state.baseTownSelection ? this.state.basicInfo.filter(i => {
@@ -167,6 +199,19 @@ class App extends Component {
               { this.state.viewWhich === "wheat" ? <BasicRatesTable items={this.state.totalBasicRate.wheat} title="wheat"/> : null }
               { this.state.viewWhich === "barley" ? <BasicRatesTable items={this.state.totalBasicRate.barley} title="barley"/> : null }
             </div> ) : null }
+
+
+            { this.state.totalBasicRate ? (
+                <div>
+                  <button onClick={() => this.getStRate()}> Show State Rate Table </button>
+                </div> ) : null }
+
+            { this.state.stateRate ? (
+              <div>
+                <h3>{ this.state.stateRate.city }</h3>
+                <p>$75 per acre at State Rate of { this.state.stateRate.rate } would cost you { this.state.stateRate.rate * .75 } per acre</p>
+              </div>
+            ) : null }
 
       </div>
     );

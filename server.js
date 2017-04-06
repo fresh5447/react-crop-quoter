@@ -127,6 +127,18 @@ app.get('/api/v2/basic', function(req,res){
   }
 });
 
+app.get('/api/v2/basicCityByKey/:key', function(req,res){
+  var data = makeBasicData();
+  if(!data){
+    res.send("Something is wrong");
+  } else {
+    var city = data.basicCities.find((item) => {
+      return item.key === req.params.key
+    });
+    res.json(city)
+  }
+});
+
 app.get('/api/v2/basic/:key', function(req,res){
   var data = makeBasicData();
   var oneData = data.basicInfo.find(function(item){
