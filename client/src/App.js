@@ -3,6 +3,7 @@ import DropDown from './DropDown';
 import logo from './logo.svg';
 import './App.css';
 import BasicRatesTable from './BasicRatesTable';
+import LossTable from './LossTable';
 
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
       count:             0
     }
     this.onFieldChange = this.onFieldChange.bind(this);
+    this.showTableToggle = this.showTableToggle.bind(this);
   }
   componentDidMount() {
     this.loadBase();
@@ -117,13 +119,13 @@ class App extends Component {
     if(this.state.viewWhich === "wheat"){
       return (
         <div>
-          <button onClick={() => this.setState({viewWhich: 'barley'}) }> Show Barley </button>
+          <button className="btn btn-primary" onClick={() => this.setState({viewWhich: 'barley'}) }> Show Barley </button>
         </div>
       )
     } else if (this.state.viewWhich === "barley") {
       return (
         <div>
-          <button onClick={() => this.setState({viewWhich: 'wheat'}) }> show wheat </button>
+          <button className="btn btn-primary" onClick={() => this.setState({viewWhich: 'wheat'}) }> show wheat </button>
         </div>
       )
     } else {
@@ -195,21 +197,32 @@ class App extends Component {
 
         { this.state.totalBasicRate ? (
             <div>
-              { this.showTableToggle() }
-              { this.state.viewWhich === "wheat" ? <BasicRatesTable items={this.state.totalBasicRate.wheat} title="wheat"/> : null }
-              { this.state.viewWhich === "barley" ? <BasicRatesTable items={this.state.totalBasicRate.barley} title="barley"/> : null }
+              { this.state.viewWhich === "wheat" ? <BasicRatesTable toggle={this.showTableToggle} top={this.getTopWheatRate()} items={this.state.totalBasicRate.wheat} title="wheat"/> : null }
+              { this.state.viewWhich === "barley" ? <BasicRatesTable toggle={this.showTableToggle} top={this.getTopBarleyRate()} items={this.state.totalBasicRate.barley} title="barley"/> : null }
             </div> ) : null }
 
 
             { this.state.totalBasicRate ? (
                 <div>
-                  <button onClick={() => this.getStRate()}> Show State Rate Table </button>
+                  <button onClick={() => this.getStRate()} className="btn btn-primary"> Show Loss Scenario </button>
                 </div> ) : null }
 
             { this.state.stateRate ? (
-              <div>
-                <h3>{ this.state.stateRate.city }</h3>
-                <p>$75 per acre at State Rate of { this.state.stateRate.rate } would cost you { this.state.stateRate.rate * .75 } per acre</p>
+              <div className="App">
+                <div>
+                  <h3>{ this.state.stateRate.city }</h3>
+                  <p>$75 per acre at State Rate of { this.state.stateRate.rate } would cost you { this.state.stateRate.rate * .75 } per acre</p>
+                </div>
+                <div className="App">
+                  <LossTable sr={this.state.stateRate.rate}
+                            riskRate={this.state.stateRate.rate * .75 }
+                            top={this.state.viewWhich === "wheat" ?
+                              this.getTopWheatRate() : this.getTopBarleyRate()
+                            }
+                            baseRates={this.state.viewWhich === "wheat" ?
+                              this.state.totalBasicRate.wheat  : this.state.totalBasicRate.barley }
+                  />
+                </div>
               </div>
             ) : null }
 

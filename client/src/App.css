@@ -25,6 +25,10 @@
 
 .my-table {
   width:70%;
-  margin-left:15%; 
+  margin-left:15%;
   margin-right:15%;
+}
+
+.btn-primary {
+  margin: 1%;
 }

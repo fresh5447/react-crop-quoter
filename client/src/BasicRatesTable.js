@@ -2,10 +2,11 @@ import React from 'react';
 
 const BasicRatesTable = (props) => {
   return (
-    <div className="App">
-      <div className="App">
+    <div className="">
+      <div className="">
         <h3> Here's your {props.title} options </h3>
-        <table className="my-table">
+        { props.toggle() }
+        <table className="table table-striped my-table">
           <thead>
             <tr>
               <th>Basic</th>
@@ -15,6 +16,7 @@ const BasicRatesTable = (props) => {
               <th>DD20</th>
               <th>XS20IP</th>
               <th>80MIN</th>
+              <th>Top 1/2</th>
             </tr>
           </thead>
           <tbody>
@@ -26,6 +28,7 @@ const BasicRatesTable = (props) => {
               <td>{ props.items.dd20.toFixed(2) }</td>
               <td>{ props.items.xs20ip.toFixed(2) }</td>
               <td>{ props.items.eightyMin.toFixed(2) }</td>
+              <td>{ props.top }</td>
             </tr>
           </tbody>
         </table>
