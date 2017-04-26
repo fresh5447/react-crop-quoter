@@ -23,6 +23,7 @@ class App extends Component {
     activeStateRate: null,
     city: null,
     count: 0,
+    loadingLossScenario: false
   };
 
   onFieldChange = this.onFieldChange.bind(this);
@@ -70,13 +71,13 @@ class App extends Component {
         .then(blob => blob.json())
         .then(data => {
           console.log(data, 'DATA GETTING STATE RATE');
-          return this.setState({activeStateRate: data});
+          return this.setState({activeStateRate: data, loadingLossScenario: false});
         })
         .catch(e => {
           console.error(e, 'ERROR');
           return e;
         });
-    }, 3000);
+    }, 1000);
   }
 
   getTotalBasicTableData() {
@@ -169,7 +170,11 @@ class App extends Component {
     }
   }
 
-  filterdTownData(){
+  filterTownData(){
+    // Step one: return only that match the first 3 chars
+    // of the key. 999Y is for when no others match
+    // Then we used map to make the array shallow
+    // after we make array unique, we map to option drowdown
     var findMatches = this.state.townshipAndRangeData
           .filter(i => {
             var countyKey = i.key.substring(0, 3)
@@ -187,24 +192,31 @@ class App extends Component {
     return mappedItems;
   }
 
+  filterRangeData(){
+    // see filter town data
+  var findMatches = this.state.townshipAndRangeData
+        .filter(i => {
+          var selectedTown = this.state.selectedTownship;
+          return i.key.substring(3, 7) === selectedTown;
+        });
+  var getValues = findMatches.map(d => d.key.substring(7, 11));
+  var filterToUnique = _.uniq(getValues)
+      return  filterToUnique.map(d => {
+          return (
+            <option value={d}>
+              {d}
+            </option>
+          );
+        })
+  }
+
   render() {
     const availableTownshipSelections = this.state.selectedCounty
-      ? this.filterdTownData()
+      ? this.filterTownData()
       : <option value="na">loading...</option>;
 
     const availableRangeSelections = this.state.selectedTownship
-      ? this.state.townshipAndRangeData
-          .filter(i => {
-            var selectedTown = this.state.selectedTownship;
-            return i.key.substring(3, 7) === selectedTown;
-          })
-          .map(d => {
-            return (
-              <option value={d.key.substring(7, 11)}>
-                {d.key.substring(7, 11)}
-              </option>
-            );
-          })
+      ? this.filterRangeData()
       : <option value="na">loading...</option>;
 
     return (
@@ -277,10 +289,14 @@ class App extends Component {
         {this.state.basicTableData
           ? <div className="App">
               <button
-                onClick={() => this.fetchStateRate()}
+                onClick={() => {
+                  this.setState({ loadingLossScenario: true })
+                  this.fetchStateRate()
+                }}
                 className="btn btn-primary"
               >
-                {' '}Show Loss Scenario{' '}
+                { !this.state.loadingLossScenario ?
+                  "Show Loss Scenario" : "Loading..." }
               </button>
             </div>
           : null}
@@ -296,7 +312,7 @@ class App extends Component {
                   {' '}
                   would cost you
                   {' '}
-                  {this.state.activeStateRate.rate * 0.75}
+                  { '$' + (this.state.activeStateRate.rate * 0.75).toFixed(2) }
                   {' '}
                   per acre
                 </p>
