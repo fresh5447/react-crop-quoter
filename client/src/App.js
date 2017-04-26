@@ -226,7 +226,7 @@ class App extends Component {
           <h2>McMeel Insurance Crop Quoter</h2>
           <button
             className="btn btn-danger"
-            onClick={() => this.clearAllState()}
+            onClick={() => window.location = "/"}
           >
             {' '}Reset{' '}
           </button>
@@ -306,13 +306,13 @@ class App extends Component {
               <div>
                 <h3>{this.state.activeStateRate.city}</h3>
                 <p>
-                  $75 per acre at State Rate of
+                  <strong>$75</strong> per acre at State Rate of
                   {' '}
-                  {this.state.activeStateRate.rate}
+                  <strong>{this.state.activeStateRate.rate}</strong>
                   {' '}
                   would cost you
                   {' '}
-                  { '$' + (this.state.activeStateRate.rate * 0.75).toFixed(2) }
+                  <strong>{ '$' + (this.state.activeStateRate.rate * 0.75).toFixed(2) }</strong>
                   {' '}
                   per acre
                 </p>
