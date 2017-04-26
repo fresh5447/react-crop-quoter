@@ -16,7 +16,7 @@ const LossTable = (props) => {
       <tbody>
         <tr>
           <td>Liability Per/Acre</td>
-          <td>$75</td>
+          <td>{ "$"+( 75 ).toFixed(2) }</td>
           <td>{ "$"+((props.riskRate / props.baseRates.basic) * 100 ).toFixed(2) }</td>
           <td>{ "$"+((props.riskRate / props.top) * 100 ).toFixed(2) }</td>
           <td>{ "$"+((props.riskRate / props.baseRates.dda) * 100 ).toFixed(2) }</td>

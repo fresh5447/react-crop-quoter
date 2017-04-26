@@ -168,14 +168,19 @@ class App extends Component {
           <button className="btn btn-danger" onClick={() => this.clearAllState()}> Reset </button>
         </div>
 
-        <div className="App">
-          <h3> Select County</h3>
-          <DropDown onFieldChange={this.onFieldChange} selectionToUpdate="baseCtySelection">
-            { this.state.basicCities ? this.state.basicCities.map(d => {
-                return <option value={ d.key }>{ d.city }</option>
-              }) : <option value="na">loading...</option>
-            }
-          </DropDown>
+        <div className="App Buttons App">
+          <div>
+            <h3> Select County</h3>
+            <DropDown onFieldChange={this.onFieldChange} selectionToUpdate="baseCtySelection">
+              { this.state.basicCities ? this.state.basicCities.map(d => {
+                  return <option value={ d.key }>{ d.city }</option>
+                }) : <option value="na">loading...</option>
+              }
+            </DropDown>
+          </div>
+          <div>
+
+          </div>
         </div>
 
 
