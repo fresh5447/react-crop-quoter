@@ -1,9 +1,4 @@
-// view one - BasicSelections
-// WheatOrBarleyTable
-// Loss Scenario
-
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import DropDown from './DropDown';
 import logo from './logo.svg';
 import './App.css';
@@ -11,22 +6,22 @@ import BasicRatesTable from './BasicRatesTable';
 import LossTable from './LossTable';
 import CountySelector from './CountySelector';
 import TownshipSelector from './TownshipSelector';
-
+// import RangeSelector from './RangeSelector';
 
 class App extends Component {
   state = {
     townshipAndRangeData: null,
-    countyData:       null,
-    topHalfData:       null,
-    selectedCounty:  null,
+    countyData: null,
+    topHalfData: null,
+    selectedCounty: null,
     selectedTownship: null,
-    selectedRange:  null,
-    basicTableData:    null,
-    wheatOrBarleyTable:         "wheat",
-    activeStateRate:         null,
-    city:              null,
-    count:             0
-  }
+    selectedRange: null,
+    basicTableData: null,
+    wheatOrBarleyTable: 'wheat',
+    activeStateRate: null,
+    city: null,
+    count: 0,
+  };
 
   onFieldChange = this.onFieldChange.bind(this);
   toggleWheatBarleyTable = this.toggleWheatBarleyTable.bind(this);
@@ -41,70 +36,78 @@ class App extends Component {
       .then(blob => blob.json())
       .then(data => {
         // go back to bI
-        this.setState({ townshipAndRangeData: data.basicInfo, countyData: data.basicCities })
+        this.setState({
+          townshipAndRangeData: data.basicInfo,
+          countyData: data.basicCities,
+        });
       })
       .catch(e => {
         console.error(e, 'ERROR');
-        return e
-      })
+        return e;
+      });
   }
 
-  fetchStateRate(){
-    let cityText = "";
+  fetchStateRate() {
+    let cityText = '';
     let keyy = this.state.selectedCounty;
     fetch(`/api/v2/basicCityByKey/${keyy}`)
       .then(blob => blob.json())
       .then(data => {
         cityText = data.city;
-        console.log("in city text", cityText);
-        this.setState({ city: cityText })
-        return cityText
+        console.log('in city text', cityText);
+        this.setState({city: cityText});
+        return cityText;
       })
       .catch(e => {
         console.error(e, 'ERROR');
-        return e
-      })
+        return e;
+      });
 
-      setTimeout(() => {
-        fetch(`/api/v2/state/${this.state.city}`)
-          .then(blob => blob.json())
-          .then(data => {
-            console.log(data, "DATA GETTING STATE RATE");
-            return this.setState({ activeStateRate: data })
-          })
-          .catch(e => {
-            console.error(e, 'ERROR');
-            return e
-          })
-      }, 3000);
-
+    setTimeout(() => {
+      fetch(`/api/v2/state/${this.state.city}`)
+        .then(blob => blob.json())
+        .then(data => {
+          console.log(data, 'DATA GETTING STATE RATE');
+          return this.setState({activeStateRate: data});
+        })
+        .catch(e => {
+          console.error(e, 'ERROR');
+          return e;
+        });
+    }, 3000);
   }
 
   getTotalBasicTableData() {
-    if(this.state.selectedCounty && this.state.selectedTownship && this.state.selectedRange){
-      var lookUpKey = this.state.selectedCounty + this.state.selectedTownship + this.state.selectedRange
+    if (
+      this.state.selectedCounty &&
+      this.state.selectedTownship &&
+      this.state.selectedRange
+    ) {
+      var lookUpKey =
+        this.state.selectedCounty +
+        this.state.selectedTownship +
+        this.state.selectedRange;
       fetch(`/api/v2/basic/${lookUpKey}`)
         .then(blob => blob.json())
         .then(basicTableData => {
-          this.setState({ basicTableData })
-          console.log(basicTableData, "TOTAL BASIC RATE");
+          this.setState({basicTableData});
+          console.log(basicTableData, 'TOTAL BASIC RATE');
         })
         .catch(e => {
           console.error(e);
-          return e
-        })
+          return e;
+        });
     }
-
   }
 
   fetchTopHalfData() {
     fetch('/api/v2/tophalf')
       .then(blob => blob.json())
-      .then(topHalfData => this.setState({ topHalfData }))
+      .then(topHalfData => this.setState({topHalfData}))
       .catch(e => {
         console.error(e, 'ERROR');
-        return e
-      })
+        return e;
+      });
   }
 
   onFieldChange(fieldName, fieldValue) {
@@ -114,130 +117,199 @@ class App extends Component {
   }
 
   getTopWheatRate() {
-    const wheatTopRate = this.state.topHalfData.find((item) => {
-      return item.baseKey === this.state.basicTableData.wheat.basic
-    })
+    const wheatTopRate = this.state.topHalfData.find(item => {
+      return item.baseKey === this.state.basicTableData.wheat.basic;
+    });
     return wheatTopRate.topRate.toFixed(2);
   }
 
   getTopBarleyRate() {
-    const barleyTopRate = this.state.topHalfData.find((item) => {
-      return item.baseKey === this.state.basicTableData.barley.basic
-    })
+    const barleyTopRate = this.state.topHalfData.find(item => {
+      return item.baseKey === this.state.basicTableData.barley.basic;
+    });
     return barleyTopRate.topRate.toFixed(2);
   }
 
-  clearAllState(){
+  clearAllState() {
     return this.setState({
-      selectedCounty:  null,
+      selectedCounty: null,
       selectedTownship: null,
-      selectedRange:  null,
-      basicTableData:    null
-    })
+      selectedRange: null,
+      basicTableData: null,
+    });
   }
 
   toggleWheatBarleyTable() {
-    if(this.state.wheatOrBarleyTable === "wheat"){
+    if (this.state.wheatOrBarleyTable === 'wheat') {
       return (
         <div className="App">
-          <button className="btn btn-primary" onClick={() => this.setState({wheatOrBarleyTable: 'barley'}) }> Show Barley </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => this.setState({wheatOrBarleyTable: 'barley'})}
+          >
+            {' '}Show Barley{' '}
+          </button>
         </div>
-      )
-    } else if (this.state.wheatOrBarleyTable === "barley") {
+      );
+    } else if (this.state.wheatOrBarleyTable === 'barley') {
       return (
         <div className="App">
-          <button className="btn btn-primary" onClick={() => this.setState({wheatOrBarleyTable: 'wheat'}) }> show wheat </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => this.setState({wheatOrBarleyTable: 'wheat'})}
+          >
+            {' '}show wheat{' '}
+          </button>
         </div>
-      )
+      );
     } else {
-      return
+      return;
     }
   }
 
   render() {
-    const availableTownshipSelections = this.state.selectedCounty ? this.state.townshipAndRangeData.filter(i => {
-      var selectedCity = this.state.selectedCounty;
-      return i.key.substring(0,3) === selectedCity;
-    }).map(d => {
-      return <option value={ d.key.substring(3,7) }>{ d.key.substring(3,7) }</option>
-    }) : <option value="na">loading...</option>;
+    const availableTownshipSelections = this.state.selectedCounty
+      ? this.state.townshipAndRangeData
+          .filter(i => {
+            var selectedCity = this.state.selectedCounty;
+            return i.key.substring(0, 3) === selectedCity;
+          })
+          .map(d => {
+            return (
+              <option value={d.key.substring(3, 7)}>
+                {d.key.substring(3, 7)}
+              </option>
+            );
+          })
+      : <option value="na">loading...</option>;
 
-    const availableRangeSelections = this.state.selectedTownship ? this.state.townshipAndRangeData.filter(i => {
-      var selectedTown = this.state.selectedTownship;
-      return i.key.substring(3,7) === selectedTown;
-    }).map(d => {
-      return <option value={ d.key.substring(7,11) }>{ d.key.substring(7,11)}</option>
-    }) : <option value="na">loading...</option>;
+    const availableRangeSelections = this.state.selectedTownship
+      ? this.state.townshipAndRangeData
+          .filter(i => {
+            var selectedTown = this.state.selectedTownship;
+            return i.key.substring(3, 7) === selectedTown;
+          })
+          .map(d => {
+            return (
+              <option value={d.key.substring(7, 11)}>
+                {d.key.substring(7, 11)}
+              </option>
+            );
+          })
+      : <option value="na">loading...</option>;
 
     return (
       <div className="">
         <div className="App App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>McMeel Insurance Crop Quoter</h2>
-          <button className="btn btn-danger" onClick={() => this.clearAllState()}> Reset </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => this.clearAllState()}
+          >
+            {' '}Reset{' '}
+          </button>
         </div>
 
         <div className="App Buttons App">
-          <CountySelector onFieldChange={this.onFieldChange} countyData={this.state.countyData} />
+          <CountySelector
+            onFieldChange={this.onFieldChange}
+            countyData={this.state.countyData}
+          />
         </div>
 
+        {this.state.selectedCounty
+          ? <div className="App">
+              <TownshipSelector
+                onFieldChange={this.onFieldChange}
+                availableTownshipSelections={availableTownshipSelections}
+              />
+            </div>
+          : null}
 
-        { this.state.selectedCounty ? (
-          <div className="App">
-            <TownshipSelector onFieldChange={this.onFieldChange} availableTownshipSelections={availableTownshipSelections} />
-          </div>
+        {this.state.selectedTownship
+          ? <div className="App">
+              <h3> Select Your Range </h3>
+              <select
+                onChange={e => {
+                  this.setState({selectedRange: e.target.value});
+                  setTimeout(() => {
+                    this.getTotalBasicTableData();
+                  }, 1000);
+                }}
+              >
+                <option defaultValue="-">-</option>;
+                {availableRangeSelections}
+              </select>
+            </div>
+          : null}
 
-          ) : null
-        }
-
-
-        { this.state.selectedTownship ? (
-          <div className="App">
-            <h3> Select Your Range </h3>
-            <select onChange={ (e) => {
-              this.setState({selectedRange: e.target.value})
-              setTimeout(() => {
-                this.getTotalBasicTableData()
-              }, 1000);
-            }
-            }>
-              <option defaultValue="-">-</option>;
-              { availableRangeSelections }
-            </select>
-          </div>
-        ) : null }
-
-
-        { this.state.basicTableData ? (
-            <div>
-              { this.state.wheatOrBarleyTable === "wheat" ? <BasicRatesTable toggle={this.toggleWheatBarleyTable} top={this.getTopWheatRate()} items={this.state.basicTableData.wheat} title="wheat"/> : null }
-              { this.state.wheatOrBarleyTable === "barley" ? <BasicRatesTable toggle={this.toggleWheatBarleyTable} top={this.getTopBarleyRate()} items={this.state.basicTableData.barley} title="barley"/> : null }
-            </div> ) : null }
-
-
-            { this.state.basicTableData ? (
-                <div className="App">
-                  <button onClick={() => this.fetchStateRate()} className="btn btn-primary"> Show Loss Scenario </button>
-                </div> ) : null }
-
-            { this.state.activeStateRate ? (
-              <div className="App">
-                <div>
-                  <h3>{ this.state.activeStateRate.city }</h3>
-                  <p>$75 per acre at State Rate of { this.state.activeStateRate.rate } would cost you { this.state.activeStateRate.rate * .75 } per acre</p>
-                </div>
-                <div className="App">
-                  <LossTable sr={this.state.activeStateRate.rate}
-                            riskRate={this.state.activeStateRate.rate * .75 }
-                            top={this.state.wheatOrBarleyTable === "wheat" ?
-                              this.getTopWheatRate() : this.getTopBarleyRate()
-                            }
-                            baseRates={this.state.wheatOrBarleyTable === "wheat" ?
-                              this.state.basicTableData.wheat  : this.state.basicTableData.barley }
+        {this.state.basicTableData
+          ? <div>
+              {this.state.wheatOrBarleyTable === 'wheat'
+                ? <BasicRatesTable
+                    toggle={this.toggleWheatBarleyTable}
+                    top={this.getTopWheatRate()}
+                    items={this.state.basicTableData.wheat}
+                    title="wheat"
                   />
-                </div>
+                : null}
+              {this.state.wheatOrBarleyTable === 'barley'
+                ? <BasicRatesTable
+                    toggle={this.toggleWheatBarleyTable}
+                    top={this.getTopBarleyRate()}
+                    items={this.state.basicTableData.barley}
+                    title="barley"
+                  />
+                : null}
+            </div>
+          : null}
+
+        {this.state.basicTableData
+          ? <div className="App">
+              <button
+                onClick={() => this.fetchStateRate()}
+                className="btn btn-primary"
+              >
+                {' '}Show Loss Scenario{' '}
+              </button>
+            </div>
+          : null}
+
+        {this.state.activeStateRate
+          ? <div className="App">
+              <div>
+                <h3>{this.state.activeStateRate.city}</h3>
+                <p>
+                  $75 per acre at State Rate of
+                  {' '}
+                  {this.state.activeStateRate.rate}
+                  {' '}
+                  would cost you
+                  {' '}
+                  {this.state.activeStateRate.rate * 0.75}
+                  {' '}
+                  per acre
+                </p>
               </div>
-            ) : null }
+              <div className="App">
+                <LossTable
+                  sr={this.state.activeStateRate.rate}
+                  riskRate={this.state.activeStateRate.rate * 0.75}
+                  top={
+                    this.state.wheatOrBarleyTable === 'wheat'
+                      ? this.getTopWheatRate()
+                      : this.getTopBarleyRate()
+                  }
+                  baseRates={
+                    this.state.wheatOrBarleyTable === 'wheat'
+                      ? this.state.basicTableData.wheat
+                      : this.state.basicTableData.barley
+                  }
+                />
+              </div>
+            </div>
+          : null}
 
       </div>
     );
