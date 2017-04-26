@@ -6,6 +6,8 @@ import BasicRatesTable from './BasicRatesTable';
 import LossTable from './LossTable';
 import CountySelector from './CountySelector';
 import TownshipSelector from './TownshipSelector';
+
+import _ from 'underscore'
 // import RangeSelector from './RangeSelector';
 
 class App extends Component {
@@ -167,20 +169,27 @@ class App extends Component {
     }
   }
 
-  render() {
-    const availableTownshipSelections = this.state.selectedCounty
-      ? this.state.townshipAndRangeData
+  filterdTownData(){
+    var findMatches = this.state.townshipAndRangeData
           .filter(i => {
-            var selectedCity = this.state.selectedCounty;
-            return i.key.substring(0, 3) === selectedCity;
-          })
-          .map(d => {
+            var countyKey = i.key.substring(0, 3)
+            return countyKey === this.state.selectedCounty;
+          }).map(data => data.key.substring(3, 7))
+          .filter(item => item !== '999Y')
+    var filteredItems = _.uniq(findMatches);
+    var mappedItems = filteredItems.map(item => {
             return (
-              <option value={d.key.substring(3, 7)}>
-                {d.key.substring(3, 7)}
+              <option value={item}>
+                {item}
               </option>
             );
           })
+    return mappedItems;
+  }
+
+  render() {
+    const availableTownshipSelections = this.state.selectedCounty
+      ? this.filterdTownData()
       : <option value="na">loading...</option>;
 
     const availableRangeSelections = this.state.selectedTownship
