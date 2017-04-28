@@ -161,7 +161,7 @@ exports.getCityFromStates = (req,res) => {
     res.send("Something is wrong");
   } else {
   var foundItem = data.find((item) => {
-      return item.city === req.params.city
+      return item.city.replace(/ /g,'') === req.params.city.replace(/ /g,'')
     })
     if(!foundItem) {
       res.json({msg: "No rate for this city"})

@@ -15,5 +15,7 @@ module.exports = (app) => {
   app.get('/api/v2/old/basicCityByKey/:key', twenty16.basicCityByKey);
   app.get('/api/v2/old/basic/:key', twenty16.basicByKey);
   app.get('/api/v2/old/tophalf',  twenty16.getTopHalf);
+  app.get('/api/v2/old/state', twenty16.getState);
+  app.get('/api/v2/old/state/:city', twenty16.getCityFromStates);
 
 }

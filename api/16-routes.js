@@ -57,28 +57,28 @@ function makeBasicData(){
 
 
 
-// DONT CURRENTLY HAVE STATE RATE DATA
-// var stateRateWorkBook = XLSX.readFile('./data/twenty-16/stateRates17.xlsx');
-// var stateRatesSheet = stateRateWorkBook.SheetNames[0];
-// /* Get worksheet */
-// var stateRateCells = stateRateWorkBook.Sheets[stateRatesSheet];
-// /* Find desired cell */
-// var cellValue = ( stateRateCells['A2'] ?  stateRateCells['A2'].v : undefined);
-//
-// function makeStateRates() {
-//   var stateRates = [];
-//
-//   for (var i = 2; i <= 51; i++) {
-//       const obj = {
-//         city: ( stateRateCells[`A${i}`] ?  stateRateCells[`A${i}`].v : undefined),
-//         rate: ( stateRateCells[`B${i}`] ?  (stateRateCells[`B${i}`].v * 100) : undefined)
-//       }
-//       stateRates.push(obj);
-//     }
-//   return stateRates;
-// }
-//
-//
+
+var stateRateWorkBook = XLSX.readFile('./data/twenty-16/stateRates.xlsx');
+var stateRatesSheet = stateRateWorkBook.SheetNames[0];
+/* Get worksheet */
+var stateRateCells = stateRateWorkBook.Sheets[stateRatesSheet];
+/* Find desired cell */
+var cellValue = ( stateRateCells['A2'] ?  stateRateCells['A2'].v : undefined);
+
+function makeStateRates() {
+  var stateRates = [];
+
+  for (var i = 2; i <= 51; i++) {
+      const obj = {
+        city: ( stateRateCells[`A${i}`] ?  stateRateCells[`A${i}`].v : undefined),
+        rate: ( stateRateCells[`B${i}`] ?  (stateRateCells[`B${i}`].v * 100) : undefined)
+      }
+      stateRates.push(obj);
+    }
+  return stateRates;
+}
+
+
 
 var tophalfWorkbook = XLSX.readFile('./data/twenty-16/topHalf.xls');
 
@@ -145,30 +145,30 @@ exports.basicByKey = (req,res) => {
     res.json(oneData);
   }
 };
-//
-// exports.getState = (req,res) => {
-//   var data = makeStateRates();
-//   if(!data){
-//     res.send("Something is wrong");
-//   } else {
-//     res.json(data);
-//   }
-// };
 
-// exports.getCityFromStates = (req,res) => {
-//   var data = makeStateRates();
-//   if(!data){
-//     res.send("Something is wrong");
-//   } else {
-//   var foundItem = data.find((item) => {
-//       return item.city === req.params.city
-//     })
-//     if(!foundItem) {
-//       res.json({msg: "No rate for this city"})
-//     }
-//     res.json(foundItem);
-//   }
-// };
+exports.getState = (req,res) => {
+  var data = makeStateRates();
+  if(!data){
+    res.send("Something is wrong");
+  } else {
+    res.json(data);
+  }
+};
+
+exports.getCityFromStates = (req,res) => {
+  var data = makeStateRates();
+  if(!data){
+    res.send("Something is wrong");
+  } else {
+  var foundItem = data.find((item) => {
+      return item.city.replace(/ /g,'') == req.params.city.replace(/ /g,'')
+    })
+    if(!foundItem) {
+      res.json({msg: "No rate for this city"})
+    }
+    res.json(foundItem);
+  }
+};
 
 exports.getTopHalf = (req,res) => {
   var data = makeTopHalfData();
