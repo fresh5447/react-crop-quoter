@@ -58,7 +58,7 @@ function makeBasicData(){
 }
 
 
-var stateRateWorkBook = XLSX.readFile('./data/twenty-17/stateRates17.xlsx');
+var stateRateWorkBook = XLSX.readFile('./data/twenty-17/updatedStateRates.xlsx');
 var stateRatesSheet = stateRateWorkBook.SheetNames[0];
 /* Get worksheet */
 var stateRateCells = stateRateWorkBook.Sheets[stateRatesSheet];

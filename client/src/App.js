@@ -10,7 +10,7 @@ import TownshipSelector from './TownshipSelector';
 import _ from 'underscore';
 // import RangeSelector from './RangeSelector';
 
-class App extends Component
+class App extends Component {
   state = {
     townshipAndRangeData: null,
     countyData: null,
