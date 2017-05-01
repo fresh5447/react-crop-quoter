@@ -68,17 +68,31 @@ class Estimator extends Component {
       this.setState({ arrOfRates16: nextTemp })
   }
 
+  showDiff(){
+    if( this.state.theDiff && this.state.theDiff > 0) {
+      return <h3 className="negative"> More Expensive by { `${(this.state.theDiff).toFixed(2)}`} </h3>
+    } else if (this.state.theDiff && this.state.theDiff < 0) {
+      return <h3 className="positive"> Cheaper By { `${(this.state.theDiff).toFixed(2)}`} </h3>
+    } else {
+      return null
+    }
+  }
+
   render() {
     return (
       <div className="jumbotron">
-        <form className="form-inline">
-          <h3> Estimate This Year </h3>
-          <label> Dollar per acre </label>
+        <form className="form">
+          <h3> Cost Compoarison </h3>
           <div className="form-group">
+            <label>$ per acre</label>
             <input placeholder="dollar per acre" onChange={ (event) => this.onFieldChange("dollarPerAcre", event.target.value) } />
           </div>
           <div className="form-group">
-            <label>rate</label>
+            <label>acres</label>
+            <input placeholder="total acres" onChange={ (event) => this.onFieldChange("acresToCover", event.target.value) } />
+          </div>
+          <div className="form-group">
+            <label>2017 Rate</label>
               <select onChange={ (event) => this.onFieldChange( 'selectedRate', event.target.value ) }>
                 <option defaultValue="-">-</option>
                 { this.state.arrOfRates17 ? this.state.arrOfRates17.map(item => {
@@ -86,16 +100,11 @@ class Estimator extends Component {
                 }) : null}
               </select>
           </div>
-          <div className="form-group">
-            <label>rate</label>
-              <input placeholder="how many acres to cover?" onChange={ (event) => this.onFieldChange("acresToCover", event.target.value) } />
-          </div>
         </form>
         <div>
-          <h3> { this.state.totalCost ? `This years cost: ${this.state.totalCost}` : null } </h3>
-          <h3> select rate purchased last year </h3>
+          <h4> { this.state.totalCost ? `2017 Cost: ${this.state.totalCost}` : null } </h4>
             <div className="form-group">
-              <label>rate</label>
+              <label>2016 rate</label>
                 <select onChange={ (event) => this.onFieldChange( 'oldSelectedRate', event.target.value ) }>
                   <option defaultValue="-">-</option>
                   { this.state.arrOfRates16 ? this.state.arrOfRates16.map(item => {
@@ -103,7 +112,7 @@ class Estimator extends Component {
                   }) : null}
                 </select>
             </div>
-          <h3> { this.state.theDiff ? `Compared to last year: ${this.state.theDiff}` : null } </h3>
+          { this.showDiff() }
         </div>
       </div>
     )

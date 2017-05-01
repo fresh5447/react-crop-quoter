@@ -78,7 +78,7 @@ class App extends Component {
           });
         })
         .catch(e => {
-          console.error(e, 'ERROR');
+          console.error(e, 'FUCK ME ME?');
           return e;
         });
     }, 1000);
@@ -156,22 +156,22 @@ class App extends Component {
   }
 
   toggleWheatBarleyTable() {
-    if (this.state.wheatOrBarleyTable === 'wheat') {
+    if (this.state.wheatOrBarleyTable == 'wheat') {
       return (
         <div className="App">
           <button
-            className="btn btn-primary"
+            className="btn btn-primary togglerButton"
             onClick={() => this.setState({wheatOrBarleyTable: 'barley'})}
           >
             {' '}Show Barley{' '}
           </button>
         </div>
       );
-    } else if (this.state.wheatOrBarleyTable === 'barley') {
+    } else if (this.state.wheatOrBarleyTable == 'barley') {
       return (
         <div className="App">
           <button
-            className="btn btn-primary"
+            className="btn btn-primary togglerButton"
             onClick={() => this.setState({wheatOrBarleyTable: 'wheat'})}
           >
             {' '}show wheat{' '}
@@ -287,7 +287,7 @@ class App extends Component {
 
         {this.state.basicTableData
           ? <div className="jumbotron">
-              {this.state.wheatOrBarleyTable === 'wheat'
+              {this.state.wheatOrBarleyTable == 'wheat'
                 ? <BasicRatesTable
                     toggle={this.toggleWheatBarleyTable}
                     top={this.getTopWheatRate()}
@@ -295,7 +295,7 @@ class App extends Component {
                     title="wheat"
                   />
                 : null}
-              {this.state.wheatOrBarleyTable === 'barley'
+              {this.state.wheatOrBarleyTable == 'barley'
                 ? <BasicRatesTable
                     toggle={this.toggleWheatBarleyTable}
                     top={this.getTopBarleyRate()}
@@ -364,7 +364,7 @@ class App extends Component {
                 rates16={
                    this.state.wheatOrBarleyTable === 'wheat'
                      ? this.state.oldBasicTableData.wheat
-                     : this.state.oldBbasicTableData.barley
+                     : this.state.oldBasicTableData.barley
                  }
                 />
             </div>

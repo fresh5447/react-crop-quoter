@@ -9,6 +9,16 @@ body {
   background-color: green;
 }
 
+.positive {
+  color: white;
+  background-color: green;
+}
+
+.negative {
+  color: white;
+  background-color: red;
+}
+
 .selector-flex {
   display: flex;
   justify-content: flex-start;
