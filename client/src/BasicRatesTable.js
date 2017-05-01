@@ -2,9 +2,9 @@ import React from 'react';
 
 const BasicRatesTable = (props) => {
   return (
-    <div className="">
+    <div className="jumbotron">
       <div className="">
-        <h3 className="App"> Here's your {props.title} options </h3>
+        <h3 className="App"> viewing {props.title} options </h3>
         { props.toggle() }
         <table className="table table-striped my-table">
           <thead>

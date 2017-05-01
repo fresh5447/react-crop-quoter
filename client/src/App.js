@@ -6,9 +6,9 @@ import BasicRatesTable from './BasicRatesTable';
 import LossTable from './LossTable';
 import CountySelector from './CountySelector';
 import TownshipSelector from './TownshipSelector';
+import Estimator from './Estimator';
 
 import _ from 'underscore';
-// import RangeSelector from './RangeSelector';
 
 class App extends Component {
   state = {
@@ -23,7 +23,8 @@ class App extends Component {
     activeStateRate: null,
     city: null,
     count: 0,
-    loadingLossScenario: false
+    loadingLossScenario: false,
+    oldBasicTableData: undefined
   };
 
   onFieldChange = this.onFieldChange.bind(this);
@@ -71,7 +72,10 @@ class App extends Component {
         .then(blob => blob.json())
         .then(data => {
           console.log(data, 'DATA GETTING STATE RATE');
-          return this.setState({activeStateRate: data, loadingLossScenario: false});
+          return this.setState({
+            activeStateRate: data,
+            loadingLossScenario: false,
+          });
         })
         .catch(e => {
           console.error(e, 'ERROR');
@@ -93,13 +97,22 @@ class App extends Component {
       fetch(`/api/v2/basic/${lookUpKey}`)
         .then(blob => blob.json())
         .then(basicTableData => {
+          console.log(basicTableData, 'BASIC TABLE DATA');
           this.setState({basicTableData});
-          console.log(basicTableData, 'TOTAL BASIC RATE');
         })
         .catch(e => {
           console.error(e);
           return e;
         });
+        fetch(`/api/v2/old/basic/${lookUpKey}`)
+          .then(blob => blob.json())
+          .then(oldBasicTableData => {
+            this.setState({oldBasicTableData});
+          })
+          .catch(e => {
+            console.error(e);
+            return e;
+          });
     }
   }
 
@@ -170,44 +183,44 @@ class App extends Component {
     }
   }
 
-  filterTownData(){
+  filterTownData() {
     // Step one: return only that match the first 3 chars
     // of the key. 999Y is for when no others match
     // Then we used map to make the array shallow
     // after we make array unique, we map to option drowdown
     var findMatches = this.state.townshipAndRangeData
-          .filter(i => {
-            var countyKey = i.key.substring(0, 3)
-            return countyKey === this.state.selectedCounty;
-          }).map(data => data.key.substring(3, 7))
-          .filter(item => item !== '999Y')
+      .filter(i => {
+        var countyKey = i.key.substring(0, 3);
+        return countyKey === this.state.selectedCounty;
+      })
+      .map(data => data.key.substring(3, 7))
+      .filter(item => item !== '999Y');
     var filteredItems = _.uniq(findMatches);
     var mappedItems = filteredItems.map(item => {
-            return (
-              <option value={item}>
-                {item}
-              </option>
-            );
-          })
+      return (
+        <option value={item}>
+          {item}
+        </option>
+      );
+    });
     return mappedItems;
   }
 
-  filterRangeData(){
+  filterRangeData() {
     // see filter town data
-  var findMatches = this.state.townshipAndRangeData
-        .filter(i => {
-          var selectedTown = this.state.selectedTownship;
-          return i.key.substring(3, 7) === selectedTown;
-        });
-  var getValues = findMatches.map(d => d.key.substring(7, 11));
-  var filterToUnique = _.uniq(getValues)
-      return  filterToUnique.map(d => {
-          return (
-            <option value={d}>
-              {d}
-            </option>
-          );
-        })
+    var findMatches = this.state.townshipAndRangeData.filter(i => {
+      var selectedTown = this.state.selectedTownship;
+      return i.key.substring(3, 7) === selectedTown;
+    });
+    var getValues = findMatches.map(d => d.key.substring(7, 11));
+    var filterToUnique = _.uniq(getValues);
+    return filterToUnique.map(d => {
+      return (
+        <option value={d}>
+          {d}
+        </option>
+      );
+    });
   }
 
   render() {
@@ -221,52 +234,59 @@ class App extends Component {
 
     return (
       <div className="">
+        {/* JUMBOHEADER */}
         <div className="App App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>McMeel Insurance Crop Quoter</h2>
           <button
             className="btn btn-danger"
-            onClick={() => window.location = "/"}
+            onClick={() => window.location = '/'}
           >
             {' '}Reset{' '}
           </button>
         </div>
 
-        <div className="App Buttons App">
-          <CountySelector
-            onFieldChange={this.onFieldChange}
-            countyData={this.state.countyData}
-          />
+        {/* SELECTOR_FLEX */}
+        <div className="jumbotron selector-flex">
+          {/* COUNTY_SELECTOR */}
+          <div className="selector">
+            <CountySelector
+              onFieldChange={this.onFieldChange}
+              countyData={this.state.countyData}
+            />
+          </div>
+
+          {/* TOWNSHIP_SELECTOR */}
+          {this.state.selectedCounty
+            ? <div className="selector">
+                <TownshipSelector
+                  onFieldChange={this.onFieldChange}
+                  availableTownshipSelections={availableTownshipSelections}
+                />
+              </div>
+            : null}
+
+          {/* TOWNSHIP_SELECTOR */}
+          {this.state.selectedTownship
+            ? <div className="selector">
+                <h3> Range </h3>
+                <select
+                  onChange={e => {
+                    this.setState({selectedRange: e.target.value});
+                    setTimeout(() => {
+                      this.getTotalBasicTableData();
+                    }, 1000);
+                  }}
+                >
+                  <option defaultValue="-">-</option>;
+                  {availableRangeSelections}
+                </select>
+              </div>
+            : null}
         </div>
 
-        {this.state.selectedCounty
-          ? <div className="App">
-              <TownshipSelector
-                onFieldChange={this.onFieldChange}
-                availableTownshipSelections={availableTownshipSelections}
-              />
-            </div>
-          : null}
-
-        {this.state.selectedTownship
-          ? <div className="App">
-              <h3> Select Your Range </h3>
-              <select
-                onChange={e => {
-                  this.setState({selectedRange: e.target.value});
-                  setTimeout(() => {
-                    this.getTotalBasicTableData();
-                  }, 1000);
-                }}
-              >
-                <option defaultValue="-">-</option>;
-                {availableRangeSelections}
-              </select>
-            </div>
-          : null}
-
         {this.state.basicTableData
-          ? <div>
+          ? <div className="jumbotron">
               {this.state.wheatOrBarleyTable === 'wheat'
                 ? <BasicRatesTable
                     toggle={this.toggleWheatBarleyTable}
@@ -287,16 +307,17 @@ class App extends Component {
           : null}
 
         {this.state.basicTableData
-          ? <div className="App">
+          ? <div className="jumbotron App">
               <button
                 onClick={() => {
-                  this.setState({ loadingLossScenario: true })
-                  this.fetchStateRate()
+                  this.setState({loadingLossScenario: true});
+                  this.fetchStateRate();
                 }}
                 className="btn btn-primary"
               >
-                { !this.state.loadingLossScenario ?
-                  "Show Loss Scenario" : "Loading..." }
+                {!this.state.loadingLossScenario
+                  ? 'Show Loss Scenario'
+                  : 'Loading...'}
               </button>
             </div>
           : null}
@@ -312,12 +333,14 @@ class App extends Component {
                   {' '}
                   would cost you
                   {' '}
-                  <strong>{ '$' + (this.state.activeStateRate.rate * 0.75).toFixed(2) }</strong>
+                  <strong>
+                    {'$' + (this.state.activeStateRate.rate * 0.75).toFixed(2)}
+                  </strong>
                   {' '}
                   per acre
                 </p>
               </div>
-              <div className="App">
+              <div className="jumbotron">
                 <LossTable
                   sr={this.state.activeStateRate.rate}
                   riskRate={this.state.activeStateRate.rate * 0.75}
@@ -333,6 +356,17 @@ class App extends Component {
                   }
                 />
               </div>
+              <Estimator rates17={
+                  this.state.wheatOrBarleyTable === 'wheat'
+                    ? this.state.basicTableData.wheat
+                    : this.state.basicTableData.barley
+                }
+                rates16={
+                   this.state.wheatOrBarleyTable === 'wheat'
+                     ? this.state.oldBasicTableData.wheat
+                     : this.state.oldBbasicTableData.barley
+                 }
+                />
             </div>
           : null}
 

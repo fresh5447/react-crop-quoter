@@ -8,3 +8,25 @@ body {
   color: white;
   background-color: green;
 }
+
+.selector-flex {
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.selector {
+  width: 33.333%;
+}
+
+.jumbotron {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.togglerButton {
+  position: fixed;
+  left: 0;
+}
