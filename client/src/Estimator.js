@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+var currencyFormatter = require('currency-formatter');
 
 class Estimator extends Component {
   state = {
@@ -23,19 +24,16 @@ class Estimator extends Component {
     this.setState(newState);
 
     if(this.state.selectedRate && this.state.dollarPerAcre &&  this.state.acresToCover && this.state.oldSelectedRate) {
-      console.log("INSIDE THE THING")
-      var cost = (( (this.state.selectedRate * this.state.dollarPerAcre) * .10) * this.state.acresToCover);
+      console.log(this.state.selectedRate,this.state.dollarPerAcre, this.state.acresToCover, "ACRES AND SHIT" )
+      var cost = (( (this.state.selectedRate * this.state.dollarPerAcre) * .010) * this.state.acresToCover);
       console.log(cost, "COST")
 
-      var oldCost = (( (this.state.oldSelectedRate * this.state.dollarPerAcre) * .10) * this.state.acresToCover);
-      let costDiffernce = Number(cost) -  Number(oldCost)
-      console.log(costDiffernce, "DIFFERENCE")
-      this.setState({ totalCost: cost, oldTotalCost: oldCost, theDiff: costDiffernce})
+      var oldCost = (( (this.state.oldSelectedRate * this.state.dollarPerAcre) * .010) * this.state.acresToCover);
+      let costDiffernce = Number(cost) -  Number(oldCost);
+      this.setState({ totalCost: cost, oldTotalCost: oldCost, theDiff: costDiffernce});
     }
-
-
-
   }
+
 
   getDifference() {
     if(this.state.totalCost && this.state.oldTotalCost) {
@@ -70,9 +68,9 @@ class Estimator extends Component {
 
   showDiff(){
     if( this.state.theDiff && this.state.theDiff > 0) {
-      return <h3 className="negative"> More Expensive by { `${(this.state.theDiff).toFixed(2)}`} </h3>
+      return <h3 className="negative"> More Expensive by { `${currencyFormatter.format(this.state.theDiff, { code: 'USD' })}`} </h3>
     } else if (this.state.theDiff && this.state.theDiff < 0) {
-      return <h3 className="positive"> Cheaper By { `${(this.state.theDiff).toFixed(2)}`} </h3>
+      return <h3 className="positive"> Cheaper By { `${currencyFormatter.format(this.state.theDiff, { code: 'USD' })}`} </h3>
     } else {
       return null
     }
@@ -82,7 +80,7 @@ class Estimator extends Component {
     return (
       <div className="jumbotron">
         <form className="form">
-          <h3> Cost Compoarison </h3>
+          <h3> Cost Comparison </h3>
           <div className="form-group">
             <label>$ per acre</label>
             <input placeholder="dollar per acre" onChange={ (event) => this.onFieldChange("dollarPerAcre", event.target.value) } />
@@ -102,7 +100,7 @@ class Estimator extends Component {
           </div>
         </form>
         <div>
-          <h4> { this.state.totalCost ? `2017 Cost: ${this.state.totalCost}` : null } </h4>
+          <h4> { this.state.totalCost ? `2017 Cost:${currencyFormatter.format(this.state.totalCost, { code: 'USD' })}` : null } </h4>
             <div className="form-group">
               <label>2016 rate</label>
                 <select onChange={ (event) => this.onFieldChange( 'oldSelectedRate', event.target.value ) }>
